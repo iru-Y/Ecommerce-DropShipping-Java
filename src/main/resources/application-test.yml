@@ -1,0 +1,5 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb://delivery:delivery@localhost:27017/delivery?authSource=admin
+      database: delivery
