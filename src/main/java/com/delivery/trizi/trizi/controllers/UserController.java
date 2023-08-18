@@ -1,7 +1,7 @@
 package com.delivery.trizi.trizi.controllers;
 
 import com.delivery.trizi.trizi.domain.user.User;
-import com.delivery.trizi.trizi.services.impl.UserServiceImpl;
+import com.delivery.trizi.trizi.services.impl.UserServiceImplFlux;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,18 +13,17 @@ import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.util.concurrent.TimeUnit;
 
 @RestController
 public class UserController {
 
     @Autowired
-    private UserServiceImpl userService;
+    private UserServiceImplFlux userService;
 
 
     @GetMapping(value = "/user")
     public Flux<User> getAll () throws InterruptedException {
-        TimeUnit.SECONDS.sleep(10);
+//        TimeUnit.SECONDS.sleep(10);
         System.out.println("oba");
         return userService.getAll();
     }

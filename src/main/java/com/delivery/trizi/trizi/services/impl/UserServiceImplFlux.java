@@ -2,7 +2,7 @@ package com.delivery.trizi.trizi.services.impl;
 
 import com.delivery.trizi.trizi.domain.user.User;
 import com.delivery.trizi.trizi.repositories.UserRepository;
-import com.delivery.trizi.trizi.services.CRUDImpl;
+import com.delivery.trizi.trizi.services.FluxCRUDImpl;
 
 import com.delivery.trizi.trizi.services.exception.WrongObjectException;
 
@@ -14,7 +14,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Service
-public class UserServiceImpl implements CRUDImpl {
+public class UserServiceImplFlux implements FluxCRUDImpl {
 
     @Autowired
     private UserRepository userRepository;
