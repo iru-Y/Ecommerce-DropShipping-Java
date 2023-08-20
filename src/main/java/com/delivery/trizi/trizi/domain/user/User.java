@@ -3,11 +3,9 @@ package com.delivery.trizi.trizi.domain.user;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import lombok.Getter;
 
 import lombok.NoArgsConstructor;
 
-import lombok.NonNull;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -27,8 +25,4 @@ public class User implements Serializable {
     private String password;
     private String mail;
 
-    public User(String login, String password) {
-        this.login = login;
-        this.password = password;
-    }
 }

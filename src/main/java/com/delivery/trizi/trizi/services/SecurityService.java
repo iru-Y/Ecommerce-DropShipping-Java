@@ -1,7 +1,10 @@
 package com.delivery.trizi.trizi.services;
 
 import com.delivery.trizi.trizi.infra.security.domain.RoleSecurity;
-import com.delivery.trizi.trizi.repositories.SecurityRepository;
+
+import com.delivery.trizi.trizi.repositories.UserRepository;
+
+import com.delivery.trizi.trizi.services.exception.JwtExceptionOnCreated;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,25 +13,18 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class SecurityService implements UserDetailsService, MongoCrudImpl {
+public class SecurityService implements UserDetailsService{
 
-    private SecurityRepository securityRepository;
+    @Autowired
+    UserRepository userRepository;
 
-    @Override
-    public RoleSecurity post(RoleSecurity roleSecurity) {
-        return securityRepository.save(roleSecurity);
+
+    public RoleSecurity post (RoleSecurity roleSecurity) {
+        return userRepository.insert(roleSecurity);
     }
 
-    @Override
-    public void delete (String id) {
-        securityRepository.deleteById(id);
-    }
-
-    public UserDetails findByLogin(String login){
-        return securityRepository.findByLogin(login);
-    }
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return securityRepository.findByLogin(username);
+        return userRepository.findByLogin(username).orElseThrow(()-> new UsernameNotFoundException("loadUserByUsername"));
     }
 }

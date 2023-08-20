@@ -4,6 +4,7 @@ import com.delivery.trizi.trizi.domain.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import org.springframework.data.annotation.Id;
@@ -16,21 +17,20 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 
+@EqualsAndHashCode(callSuper = false)
 @Document(collection = "ROLES")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class RoleSecurity implements Serializable, UserDetails {
-
+public class RoleSecurity implements Serializable, UserDetails  {
     @Id
     private String id;
     private String login;
     private String password;
     private RoleEnum role;
-
-    public RoleSecurity(User user, RoleEnum roleEnum){
-        this.login = user.getLogin();
-        this.password = user.getPassword();
+    public RoleSecurity(String login, String password, RoleEnum roleEnum) {
+        this.login = login;
+        this.password = password;
         this.role = roleEnum;
     }
 
@@ -44,7 +44,7 @@ public class RoleSecurity implements Serializable, UserDetails {
 
     @Override
     public String getUsername() {
-        return this.login;
+        return login;
     }
 
     @Override
