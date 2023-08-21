@@ -1,14 +1,12 @@
 package com.delivery.trizi.trizi.controllers;
 
-import com.delivery.trizi.trizi.domain.user.User;
 import com.delivery.trizi.trizi.infra.security.jwtUtils.GeneratedToken;
 import com.delivery.trizi.trizi.infra.security.jwtUtils.RoleLoginDto;
 import com.delivery.trizi.trizi.infra.security.jwtUtils.RoleRegisterDto;
 import com.delivery.trizi.trizi.infra.security.jwtUtils.RoleSecurity;
 import com.delivery.trizi.trizi.infra.security.jwtUtils.TokenService;
-import com.delivery.trizi.trizi.repositories.UserRepository;
 
-import com.delivery.trizi.trizi.services.SecurityService;
+import com.delivery.trizi.trizi.repositories.SecurityRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -24,11 +22,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/auth")
 public class AuthController {
 
-
     @Autowired
     private AuthenticationManager authenticationManager;
     @Autowired
-    private SecurityService securityService;
+    private SecurityRepository securityRepository;
     @Autowired
     private TokenService tokenService;
 
@@ -44,11 +41,12 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity register(@RequestBody RoleRegisterDto data){
+        if(this.securityRepository.findByLogin(data.login()) != null) return ResponseEntity.badRequest().build();
 
         String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());
-        var newUser = new RoleSecurity(data.login(), encryptedPassword, data.role());
+        RoleSecurity newUser = new RoleSecurity(data.login(), encryptedPassword, data.role());
 
-        this.securityService.post(newUser);
+        this.securityRepository.save(newUser);
 
         return ResponseEntity.ok().build();
     }

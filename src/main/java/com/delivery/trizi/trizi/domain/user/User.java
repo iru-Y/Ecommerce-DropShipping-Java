@@ -1,26 +1,28 @@
 package com.delivery.trizi.trizi.domain.user;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Table;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-
 import lombok.NoArgsConstructor;
 
-
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.Document;
-
 import java.io.Serializable;
-@Document(collection = "USERS")
+import java.util.UUID;
+
+@Table(name = "TB_USERS")
+@Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class User implements Serializable {
 
     @Id
-    private String id;
-    @Indexed(unique = true)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID id;
     private String login;
     private String password;
     private String mail;

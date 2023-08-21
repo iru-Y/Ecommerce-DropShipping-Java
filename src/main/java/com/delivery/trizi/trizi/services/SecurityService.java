@@ -9,6 +9,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 public class SecurityService implements UserDetailsService {
 
@@ -19,13 +21,11 @@ public class SecurityService implements UserDetailsService {
         return securityRepository.save(roleSecurity);
     }
 
-    public void delete (String id) {
+    public void delete (UUID id) {
         securityRepository.deleteById(id);
     }
 
-    public UserDetails findByLogin(String login){
-        return securityRepository.findByLogin(login);
-    }
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return securityRepository.findByLogin(username);

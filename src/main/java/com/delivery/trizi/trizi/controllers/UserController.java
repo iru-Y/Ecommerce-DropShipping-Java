@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 public class UserController {
@@ -27,7 +28,7 @@ public class UserController {
     }
 
     @GetMapping(value = "/user/{id}")
-    public User getById (@PathVariable String id) throws InterruptedException {
+    public User getById (@PathVariable UUID id) throws InterruptedException {
 
         return userService.getById(id).orElseThrow();
     }

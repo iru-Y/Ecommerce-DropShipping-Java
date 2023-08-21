@@ -1,13 +1,16 @@
 package com.delivery.trizi.trizi.infra.security.jwtUtils;
 
-import com.delivery.trizi.trizi.domain.user.User;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import lombok.NoArgsConstructor;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import jakarta.persistence.Id;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,15 +18,19 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 
-@Document(collection = "ROLES")
+@Table(name = "TB_ROLES")
+@Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class RoleSecurity implements Serializable, UserDetails {
 
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID id;
+    @Column(unique = true)
     private String login;
     private String password;
     private RoleEnum role;
@@ -44,7 +51,7 @@ public class RoleSecurity implements Serializable, UserDetails {
 
     @Override
     public String getUsername() {
-        return this.login;
+        return login;
     }
 
     @Override

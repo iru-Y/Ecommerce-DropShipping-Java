@@ -2,11 +2,11 @@ package com.delivery.trizi.trizi.repositories;
 
 import com.delivery.trizi.trizi.domain.user.User;
 
-import org.springframework.data.mongodb.repository.MongoRepository;
-
+import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
+import java.util.UUID;
 
-public interface UserRepository extends MongoRepository<User, String> {
+public interface UserRepository extends JpaRepository<User, UUID> {
     Optional<User> findByLogin(String login);
 
 }
