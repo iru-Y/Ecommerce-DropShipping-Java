@@ -1,7 +1,7 @@
 package com.delivery.trizi.trizi.controllers;
 
 import com.delivery.trizi.trizi.domain.user.User;
-import com.delivery.trizi.trizi.services.impl.UserServiceImplFlux;
+import com.delivery.trizi.trizi.services.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,37 +10,35 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
-
+import java.util.List;
 
 @RestController
 public class UserController {
 
     @Autowired
-    private UserServiceImplFlux userService;
+    private UserService userService;
 
 
     @GetMapping(value = "/user")
-    public Flux<User> getAll () throws InterruptedException {
+    public List<User> getAll () throws InterruptedException {
 //        TimeUnit.SECONDS.sleep(10);
         System.out.println("oba");
         return userService.getAll();
     }
 
     @GetMapping(value = "/user/{id}")
-    public Mono<User> getById (@PathVariable String id) throws InterruptedException {
+    public User getById (@PathVariable String id) throws InterruptedException {
 
-        return userService.getById(id);
+        return userService.getById(id).orElseThrow();
     }
 
     @PostMapping(value = "/user")
-    public Mono<User> post (@RequestBody User user) {
+    public User post (@RequestBody User user) {
        return userService.post(user);
     }
 
     @GetMapping(value = "/login/{login}")
-    public Mono<User> findByLogin (@PathVariable String login) {
-        return userService.findByLogin(login);
+    public User findByLogin (@PathVariable String login) {
+        return userService.findByLogin(login).orElseThrow();
     }
 }

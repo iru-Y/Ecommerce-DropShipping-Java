@@ -1,6 +1,6 @@
 package com.delivery.trizi.trizi.infra.security;
 
-import com.delivery.trizi.trizi.infra.security.domain.TokenService;
+import com.delivery.trizi.trizi.infra.security.jwtUtils.TokenService;
 import com.delivery.trizi.trizi.services.SecurityService;
 
 import jakarta.servlet.FilterChain;

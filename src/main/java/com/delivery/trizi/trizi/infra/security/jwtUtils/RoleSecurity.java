@@ -1,4 +1,4 @@
-package com.delivery.trizi.trizi.infra.security.domain;
+package com.delivery.trizi.trizi.infra.security.jwtUtils;
 
 import com.delivery.trizi.trizi.domain.user.User;
 import lombok.AllArgsConstructor;
@@ -28,9 +28,9 @@ public class RoleSecurity implements Serializable, UserDetails {
     private String password;
     private RoleEnum role;
 
-    public RoleSecurity(User user, RoleEnum roleEnum){
-        this.login = user.getLogin();
-        this.password = user.getPassword();
+    public RoleSecurity( String login, String password, RoleEnum roleEnum){
+        this.login = login;
+        this.password = password;
         this.role = roleEnum;
     }
 

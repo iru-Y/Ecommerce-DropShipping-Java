@@ -1,4 +1,4 @@
-package com.delivery.trizi.trizi.infra.security.domain;
+package com.delivery.trizi.trizi.infra.security.jwtUtils;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
