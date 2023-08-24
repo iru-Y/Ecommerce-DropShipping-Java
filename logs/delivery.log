@@ -1,0 +1,139 @@
+2023-08-24 18:27:21,738 ERROR o.a.c.c.C.[.[.[.[dispatcherServlet] [http-nio-8080-exec-9] Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: java.util.NoSuchElementException: No value present] with root cause
+java.util.NoSuchElementException: No value present
+	at java.util.Optional.get(Optional.java:143) ~[?:?]
+	at com.delivery.trizi.trizi.services.MediaService.getMedia(MediaService.java:28) ~[classes/:?]
+	at com.delivery.trizi.trizi.controllers.MediaController.getPhoto(MediaController.java:23) ~[classes/:?]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[?:?]
+	at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:568) ~[?:?]
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:205) ~[spring-web-6.0.11.jar:6.0.11]
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:150) ~[spring-web-6.0.11.jar:6.0.11]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118) ~[spring-webmvc-6.0.11.jar:6.0.11]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:884) ~[spring-webmvc-6.0.11.jar:6.0.11]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:797) ~[spring-webmvc-6.0.11.jar:6.0.11]
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-6.0.11.jar:6.0.11]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1081) ~[spring-webmvc-6.0.11.jar:6.0.11]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:974) ~[spring-webmvc-6.0.11.jar:6.0.11]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1011) ~[spring-webmvc-6.0.11.jar:6.0.11]
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:903) ~[spring-webmvc-6.0.11.jar:6.0.11]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564) ~[tomcat-embed-core-10.1.11.jar:6.0]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885) ~[spring-webmvc-6.0.11.jar:6.0.11]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658) ~[tomcat-embed-core-10.1.11.jar:6.0]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:205) ~[tomcat-embed-core-10.1.11.jar:10.1.11]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.11.jar:10.1.11]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51) ~[tomcat-embed-websocket-10.1.11.jar:10.1.11]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[tomcat-embed-core-10.1.11.jar:10.1.11]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.11.jar:10.1.11]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:110) ~[spring-web-6.0.11.jar:6.0.11]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[tomcat-embed-core-10.1.11.jar:10.1.11]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.11.jar:10.1.11]
+	at org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(FilterChainProxy.java:231) ~[spring-security-web-6.1.2.jar:6.1.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:365) ~[spring-security-web-6.1.2.jar:6.1.2]
+	at org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:100) ~[spring-security-web-6.1.2.jar:6.1.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.1.2.jar:6.1.2]
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:126) ~[spring-security-web-6.1.2.jar:6.1.2]
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:120) ~[spring-security-web-6.1.2.jar:6.1.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.1.2.jar:6.1.2]
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:131) ~[spring-security-web-6.1.2.jar:6.1.2]
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:85) ~[spring-security-web-6.1.2.jar:6.1.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.1.2.jar:6.1.2]
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100) ~[spring-security-web-6.1.2.jar:6.1.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.1.2.jar:6.1.2]
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179) ~[spring-security-web-6.1.2.jar:6.1.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.1.2.jar:6.1.2]
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63) ~[spring-security-web-6.1.2.jar:6.1.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.1.2.jar:6.1.2]
+	at com.delivery.trizi.trizi.infra.security.SecurityFilter.doFilterInternal(SecurityFilter.java:44) ~[classes/:?]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.0.11.jar:6.0.11]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.1.2.jar:6.1.2]
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107) ~[spring-security-web-6.1.2.jar:6.1.2]
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93) ~[spring-security-web-6.1.2.jar:6.1.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.1.2.jar:6.1.2]
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90) ~[spring-security-web-6.1.2.jar:6.1.2]
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75) ~[spring-security-web-6.1.2.jar:6.1.2]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.0.11.jar:6.0.11]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.1.2.jar:6.1.2]
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82) ~[spring-security-web-6.1.2.jar:6.1.2]
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69) ~[spring-security-web-6.1.2.jar:6.1.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.1.2.jar:6.1.2]
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62) ~[spring-security-web-6.1.2.jar:6.1.2]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.0.11.jar:6.0.11]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.1.2.jar:6.1.2]
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42) ~[spring-security-web-6.1.2.jar:6.1.2]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.0.11.jar:6.0.11]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.1.2.jar:6.1.2]
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233) ~[spring-security-web-6.1.2.jar:6.1.2]
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191) ~[spring-security-web-6.1.2.jar:6.1.2]
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:352) ~[spring-web-6.0.11.jar:6.0.11]
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:268) ~[spring-web-6.0.11.jar:6.0.11]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[tomcat-embed-core-10.1.11.jar:10.1.11]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.11.jar:10.1.11]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-6.0.11.jar:6.0.11]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.0.11.jar:6.0.11]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[tomcat-embed-core-10.1.11.jar:10.1.11]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.11.jar:10.1.11]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-6.0.11.jar:6.0.11]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.0.11.jar:6.0.11]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[tomcat-embed-core-10.1.11.jar:10.1.11]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.11.jar:10.1.11]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-6.0.11.jar:6.0.11]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.0.11.jar:6.0.11]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[tomcat-embed-core-10.1.11.jar:10.1.11]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.11.jar:10.1.11]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:166) [tomcat-embed-core-10.1.11.jar:10.1.11]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90) [tomcat-embed-core-10.1.11.jar:10.1.11]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482) [tomcat-embed-core-10.1.11.jar:10.1.11]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115) [tomcat-embed-core-10.1.11.jar:10.1.11]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93) [tomcat-embed-core-10.1.11.jar:10.1.11]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) [tomcat-embed-core-10.1.11.jar:10.1.11]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:341) [tomcat-embed-core-10.1.11.jar:10.1.11]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:391) [tomcat-embed-core-10.1.11.jar:10.1.11]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) [tomcat-embed-core-10.1.11.jar:10.1.11]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:894) [tomcat-embed-core-10.1.11.jar:10.1.11]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1740) [tomcat-embed-core-10.1.11.jar:10.1.11]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) [tomcat-embed-core-10.1.11.jar:10.1.11]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191) [tomcat-embed-core-10.1.11.jar:10.1.11]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) [tomcat-embed-core-10.1.11.jar:10.1.11]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) [tomcat-embed-core-10.1.11.jar:10.1.11]
+	at java.lang.Thread.run(Thread.java:833) [?:?]
+2023-08-24 18:27:41,830 INFO c.d.t.t.TriziApplication [restartedMain] Starting TriziApplication using Java 17.0.8 with PID 32129 (/home/iruy/Programacao/Java/Ecommerce-DropShipping-Java-96603f889d7f0b452965d7163141a093f1f69f68/target/classes started by iruy in /home/iruy/Programacao/Java/Ecommerce-DropShipping-Java-96603f889d7f0b452965d7163141a093f1f69f68)
+2023-08-24 18:27:41,841 DEBUG c.d.t.t.TriziApplication [restartedMain] Running with Spring Boot v3.1.2, Spring v6.0.11
+2023-08-24 18:27:41,844 INFO c.d.t.t.TriziApplication [restartedMain] The following 1 profile is active: "test"
+2023-08-24 18:27:45,012 DEBUG c.d.t.t.i.s.SecurityFilter [restartedMain] Filter 'securityFilter' configured for use
+2023-08-24 18:27:45,857 INFO c.d.t.t.TriziApplication [restartedMain] Started TriziApplication in 4.736 seconds (process running for 6.183)
+2023-08-24 18:31:38,161 INFO c.d.t.t.TriziApplication [restartedMain] Starting TriziApplication using Java 17.0.8 with PID 32407 (/home/iruy/Programacao/Java/Ecommerce-DropShipping-Java-96603f889d7f0b452965d7163141a093f1f69f68/target/classes started by iruy in /home/iruy/Programacao/Java/Ecommerce-DropShipping-Java-96603f889d7f0b452965d7163141a093f1f69f68)
+2023-08-24 18:31:38,178 DEBUG c.d.t.t.TriziApplication [restartedMain] Running with Spring Boot v3.1.2, Spring v6.0.11
+2023-08-24 18:31:38,180 INFO c.d.t.t.TriziApplication [restartedMain] The following 1 profile is active: "test"
+2023-08-24 18:31:41,658 DEBUG c.d.t.t.i.s.SecurityFilter [restartedMain] Filter 'securityFilter' configured for use
+2023-08-24 18:31:42,447 INFO c.d.t.t.TriziApplication [restartedMain] Started TriziApplication in 4.994 seconds (process running for 6.84)
+2023-08-24 18:34:06,647 INFO c.d.t.t.TriziApplication [restartedMain] Starting TriziApplication using Java 17.0.8 with PID 32619 (/home/iruy/Programacao/Java/Ecommerce-DropShipping-Java-96603f889d7f0b452965d7163141a093f1f69f68/target/classes started by iruy in /home/iruy/Programacao/Java/Ecommerce-DropShipping-Java-96603f889d7f0b452965d7163141a093f1f69f68)
+2023-08-24 18:34:06,661 DEBUG c.d.t.t.TriziApplication [restartedMain] Running with Spring Boot v3.1.2, Spring v6.0.11
+2023-08-24 18:34:06,663 INFO c.d.t.t.TriziApplication [restartedMain] The following 1 profile is active: "test"
+2023-08-24 18:34:09,885 DEBUG c.d.t.t.i.s.SecurityFilter [restartedMain] Filter 'securityFilter' configured for use
+2023-08-24 18:34:10,710 INFO c.d.t.t.TriziApplication [restartedMain] Started TriziApplication in 4.861 seconds (process running for 6.629)
+2023-08-24 18:36:01,045 INFO c.d.t.t.TriziApplication [restartedMain] Starting TriziApplication using Java 17.0.8 with PID 32819 (/home/iruy/Programacao/Java/Ecommerce-DropShipping-Java-96603f889d7f0b452965d7163141a093f1f69f68/target/classes started by iruy in /home/iruy/Programacao/Java/Ecommerce-DropShipping-Java-96603f889d7f0b452965d7163141a093f1f69f68)
+2023-08-24 18:36:01,065 DEBUG c.d.t.t.TriziApplication [restartedMain] Running with Spring Boot v3.1.2, Spring v6.0.11
+2023-08-24 18:36:01,066 INFO c.d.t.t.TriziApplication [restartedMain] The following 1 profile is active: "test"
+2023-08-24 18:36:04,419 DEBUG c.d.t.t.i.s.SecurityFilter [restartedMain] Filter 'securityFilter' configured for use
+2023-08-24 18:36:05,402 INFO c.d.t.t.TriziApplication [restartedMain] Started TriziApplication in 5.178 seconds (process running for 6.716)
+2023-08-24 18:38:35,884 INFO c.d.t.t.TriziApplication [restartedMain] Starting TriziApplication using Java 17.0.8 with PID 33057 (/home/iruy/Programacao/Java/Ecommerce-DropShipping-Java-96603f889d7f0b452965d7163141a093f1f69f68/target/classes started by iruy in /home/iruy/Programacao/Java/Ecommerce-DropShipping-Java-96603f889d7f0b452965d7163141a093f1f69f68)
+2023-08-24 18:38:35,893 DEBUG c.d.t.t.TriziApplication [restartedMain] Running with Spring Boot v3.1.2, Spring v6.0.11
+2023-08-24 18:38:35,894 INFO c.d.t.t.TriziApplication [restartedMain] The following 1 profile is active: "test"
+2023-08-24 18:38:38,596 DEBUG c.d.t.t.i.s.SecurityFilter [restartedMain] Filter 'securityFilter' configured for use
+2023-08-24 18:38:39,413 INFO c.d.t.t.TriziApplication [restartedMain] Started TriziApplication in 4.191 seconds (process running for 5.565)
+2023-08-24 18:39:51,131 INFO c.d.t.t.TriziApplication [restartedMain] Starting TriziApplication using Java 17.0.8 with PID 33282 (/home/iruy/Programacao/Java/Ecommerce-DropShipping-Java-96603f889d7f0b452965d7163141a093f1f69f68/target/classes started by iruy in /home/iruy/Programacao/Java/Ecommerce-DropShipping-Java-96603f889d7f0b452965d7163141a093f1f69f68)
+2023-08-24 18:39:51,147 DEBUG c.d.t.t.TriziApplication [restartedMain] Running with Spring Boot v3.1.2, Spring v6.0.11
+2023-08-24 18:39:51,149 INFO c.d.t.t.TriziApplication [restartedMain] The following 1 profile is active: "test"
+2023-08-24 18:39:53,775 DEBUG c.d.t.t.i.s.SecurityFilter [restartedMain] Filter 'securityFilter' configured for use
+2023-08-24 18:39:54,559 INFO c.d.t.t.TriziApplication [restartedMain] Started TriziApplication in 4.214 seconds (process running for 5.578)
+2023-08-24 18:50:39,338 INFO c.d.t.t.TriziApplication [restartedMain] Starting TriziApplication using Java 17.0.8 with PID 33817 (/home/iruy/Programacao/Java/Ecommerce-DropShipping-Java-96603f889d7f0b452965d7163141a093f1f69f68/target/classes started by iruy in /home/iruy/Programacao/Java/Ecommerce-DropShipping-Java-96603f889d7f0b452965d7163141a093f1f69f68)
+2023-08-24 18:50:39,351 DEBUG c.d.t.t.TriziApplication [restartedMain] Running with Spring Boot v3.1.2, Spring v6.0.11
+2023-08-24 18:50:39,354 INFO c.d.t.t.TriziApplication [restartedMain] The following 1 profile is active: "test"
+2023-08-24 18:50:41,963 DEBUG c.d.t.t.i.s.SecurityFilter [restartedMain] Filter 'securityFilter' configured for use
+2023-08-24 18:50:42,743 INFO c.d.t.t.TriziApplication [restartedMain] Started TriziApplication in 4.09 seconds (process running for 5.52)
+2023-08-24 18:57:24,021 INFO c.d.t.t.TriziApplication [restartedMain] Starting TriziApplication using Java 17.0.8 with PID 34223 (/home/iruy/Programacao/Java/Ecommerce-DropShipping-Java-96603f889d7f0b452965d7163141a093f1f69f68/target/classes started by iruy in /home/iruy/Programacao/Java/Ecommerce-DropShipping-Java-96603f889d7f0b452965d7163141a093f1f69f68)
+2023-08-24 18:57:24,029 DEBUG c.d.t.t.TriziApplication [restartedMain] Running with Spring Boot v3.1.2, Spring v6.0.11
+2023-08-24 18:57:24,031 INFO c.d.t.t.TriziApplication [restartedMain] The following 1 profile is active: "test"
+2023-08-24 18:57:26,960 DEBUG c.d.t.t.i.s.SecurityFilter [restartedMain] Filter 'securityFilter' configured for use
+2023-08-24 18:57:27,886 INFO c.d.t.t.TriziApplication [restartedMain] Started TriziApplication in 4.59 seconds (process running for 6.613)
