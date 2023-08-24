@@ -1,0 +1,15 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb://delivery:delivery@localhost:27017/delivery?authSource=admin
+      database: delivery
+api:
+  security:
+    token:
+      secret: ${JWT_SECRET:my-secret-key}
+  logging:
+    level:
+      com:
+        delivery:
+          trizi:
+            trizi: DEBUG
