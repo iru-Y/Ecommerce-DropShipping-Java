@@ -1,12 +1,14 @@
-package com.delivery.trizi.trizi.infra.security.jwtUtils;
+package com.delivery.trizi.trizi.domain.user;
 
-import com.delivery.trizi.trizi.domain.user.User;
+import com.delivery.trizi.trizi.infra.security.jwtUtils.RoleEnum;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 import lombok.NoArgsConstructor;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -16,23 +18,20 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 
-@Document(collection = "ROLES")
+@Document(collection = "USERS")
+@Builder
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class RoleSecurity implements Serializable, UserDetails {
+public class UserModel implements Serializable, UserDetails {
 
     @Id
     private String id;
+    @Indexed(unique = true)
     private String login;
     private String password;
+    private String mail;
     private RoleEnum role;
-
-    public RoleSecurity( String login, String password, RoleEnum roleEnum){
-        this.login = login;
-        this.password = password;
-        this.role = roleEnum;
-    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

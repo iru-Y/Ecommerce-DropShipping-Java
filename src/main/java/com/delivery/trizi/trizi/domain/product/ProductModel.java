@@ -1,13 +1,13 @@
 package com.delivery.trizi.trizi.domain.product;
 
-import com.delivery.trizi.trizi.domain.media.Media;
+import com.delivery.trizi.trizi.domain.media.MediaModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.bson.types.Binary;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.hateoas.RepresentationModel;
 
 import java.io.Serializable;
 
@@ -15,12 +15,12 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Product implements Serializable {
+public class ProductModel extends RepresentationModel implements Serializable {
     @Id
     private String id;
     private String description;
     private Long quantity;
     private String price;
     @DBRef
-    private Media media;
+    private MediaModel mediaModel;
 }

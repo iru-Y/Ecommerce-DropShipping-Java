@@ -1,8 +1,8 @@
 package com.delivery.trizi.trizi.services;
 
-import com.delivery.trizi.trizi.infra.security.jwtUtils.RoleSecurity;
-import com.delivery.trizi.trizi.repositories.SecurityRepository;
+import com.delivery.trizi.trizi.domain.user.UserModel;
 
+import com.delivery.trizi.trizi.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -13,10 +13,11 @@ import org.springframework.stereotype.Service;
 public class SecurityService implements UserDetailsService {
 
     @Autowired
-    private SecurityRepository securityRepository;
+    private UserRepository securityRepository;
 
-    public RoleSecurity post(RoleSecurity roleSecurity) {
-        return securityRepository.save(roleSecurity);
+    public UserModel post(UserModel userModel) {
+
+        return securityRepository.save(userModel);
     }
 
     public void delete (String id) {

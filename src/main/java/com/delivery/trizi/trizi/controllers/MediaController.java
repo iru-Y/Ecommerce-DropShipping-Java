@@ -1,6 +1,6 @@
 package com.delivery.trizi.trizi.controllers;
 
-import com.delivery.trizi.trizi.domain.media.Media;
+import com.delivery.trizi.trizi.domain.media.MediaModel;
 import com.delivery.trizi.trizi.services.MediaService;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,12 +19,12 @@ public class MediaController {
     }
 
     @GetMapping("/media/product/{id}")
-    public Media getProductMedia(@PathVariable String id, Model model) {
-        Media media = mediaService.getMedia(id);
-        model.addAttribute("title", media.getTitle());
+    public MediaModel getProductMedia(@PathVariable String id, Model model) {
+        MediaModel mediaModel = mediaService.getMedia(id);
+        model.addAttribute("title", mediaModel.getTitle());
         model.addAttribute("media",
-                Base64.getEncoder().encodeToString(media.getData().getData()));
-        return media;
+                Base64.getEncoder().encodeToString(mediaModel.getData().getData()));
+        return mediaModel;
     }
     @PostMapping("/media/product")
     public String postProductMedia(@RequestParam("title") String title,

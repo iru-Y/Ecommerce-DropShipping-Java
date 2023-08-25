@@ -1,44 +1,62 @@
 package com.delivery.trizi.trizi.controllers;
 
-import com.delivery.trizi.trizi.domain.user.User;
+import com.delivery.trizi.trizi.domain.user.UserDto;
+import com.delivery.trizi.trizi.domain.user.UserModel;
+import com.delivery.trizi.trizi.services.SecurityService;
 import com.delivery.trizi.trizi.services.UserService;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import jakarta.validation.Valid;
+import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@Log4j2
 @RestController
+@RequestMapping("users")
 public class UserController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+    private final SecurityService securityService;
 
-
-    @GetMapping(value = "/user")
-    public List<User> getAll () throws InterruptedException {
-//        TimeUnit.SECONDS.sleep(10);
-        System.out.println("oba");
-        return userService.getAll();
+    public UserController(UserService userService, SecurityService securityService) {
+        this.userService = userService;
+        this.securityService = securityService;
     }
 
-    @GetMapping(value = "/user/{id}")
-    public User getById (@PathVariable String id) throws InterruptedException {
+    @GetMapping
+    public Page<UserModel> getAll(@RequestParam(defaultValue = "0") int page,
+                                  @RequestParam(defaultValue = "100") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        log.info("Requisitada lista de usuários (página {})...", page);
+        return userService.getAll(pageable);
+    }
 
+    @GetMapping(value = "/{id}")
+    public UserModel getById (@PathVariable String id){
         return userService.getById(id).orElseThrow();
     }
 
-    @PostMapping(value = "/user")
-    public User post (@RequestBody User user) {
-       return userService.post(user);
+    @PostMapping
+    public ResponseEntity<UserModel> post (@RequestBody @Valid UserDto userDto) {
+
+        var encryptedPassword = new BCryptPasswordEncoder().encode(userDto.password());
+        var newUser = new UserModel().builder()
+                .login(userDto.login())
+                .mail(userDto.mail())
+                .role(userDto.role())
+                .password(encryptedPassword)
+                .build();
+
+        return ResponseEntity.ok().body(this.securityService.post(newUser));
     }
 
     @GetMapping(value = "/login/{login}")
-    public User findByLogin (@PathVariable String login) {
-        return userService.findByLogin(login).orElseThrow();
+    public UserModel findByLogin (@PathVariable String login) {
+        return userService.findByLogin(login);
     }
 }

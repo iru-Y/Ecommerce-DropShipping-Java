@@ -3,6 +3,7 @@ spring:
     mongodb:
       uri: mongodb://delivery:delivery@localhost:27017/delivery?authSource=admin
       database: delivery
+      auto-index-creation: true
 api:
   security:
     token:

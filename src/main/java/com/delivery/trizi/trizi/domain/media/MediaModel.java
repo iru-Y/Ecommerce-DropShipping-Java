@@ -12,13 +12,13 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class Media implements Serializable {
+public class MediaModel implements Serializable {
     @Id
     private String id;
     private String title;
     private Binary data;
 
-    public Media(String title) {
+    public MediaModel(String title) {
         this.title = title;
     }
 }

@@ -1,6 +1,6 @@
 package com.delivery.trizi.trizi.services;
 
-import com.delivery.trizi.trizi.domain.media.Media;
+import com.delivery.trizi.trizi.domain.media.MediaModel;
 import com.delivery.trizi.trizi.repositories.MediaRepository;
 import org.bson.BsonBinarySubType;
 import org.bson.types.Binary;
@@ -18,14 +18,14 @@ public class MediaService {
     }
 
     public String addMedia(String title, MultipartFile file) throws IOException {
-      Media media = new Media(title);
-        media.setData(
+      MediaModel mediaModel = new MediaModel(title);
+        mediaModel.setData(
                 new Binary(BsonBinarySubType.BINARY, file.getBytes()));
-        media = mediaRepository.insert(media);
-        return media.getId();
+        mediaModel = mediaRepository.insert(mediaModel);
+        return mediaModel.getId();
     }
 
-    public Media getMedia(String id) {
+    public MediaModel getMedia(String id) {
         return mediaRepository.findById(id).get();
     }
 }
