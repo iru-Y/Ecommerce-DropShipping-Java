@@ -16,7 +16,7 @@ public class MediaModel implements Serializable {
     @Id
     private String id;
     private String title;
-    private Binary data;
+    private String data;
 
     public MediaModel(String title) {
         this.title = title;
