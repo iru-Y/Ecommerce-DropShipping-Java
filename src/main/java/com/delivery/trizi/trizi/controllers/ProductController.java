@@ -19,11 +19,9 @@ import java.util.Arrays;
     @RequestMapping(value = "/products")
     public class ProductController {
     final private ProductService productService;
-    private final MediaService mediaService;
 
     public ProductController(ProductService productService, MediaService mediaService) {
         this.productService = productService;
-        this.mediaService = mediaService;
     }
 
     @GetMapping
