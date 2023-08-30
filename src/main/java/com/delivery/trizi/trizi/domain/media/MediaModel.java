@@ -21,4 +21,5 @@ public class MediaModel implements Serializable {
     public MediaModel(String title) {
         this.title = title;
     }
+
 }

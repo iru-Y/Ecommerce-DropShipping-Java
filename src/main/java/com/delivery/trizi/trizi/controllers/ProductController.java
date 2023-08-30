@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Arrays;
 
 @Log4j2
-    @RestController
-    @RequestMapping(value = "/products")
-    public class ProductController {
+@RestController
+@RequestMapping(value = "/products")
+public class ProductController {
     final private ProductService productService;
 
     public ProductController(ProductService productService, MediaService mediaService) {

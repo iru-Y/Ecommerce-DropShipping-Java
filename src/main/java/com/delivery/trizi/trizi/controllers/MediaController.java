@@ -4,16 +4,19 @@ import com.delivery.trizi.trizi.domain.media.MediaModel;
 import com.delivery.trizi.trizi.services.MediaService;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @RestController
+@RequestMapping(value = "/media")
 public class MediaController {
 
     private final MediaService mediaService;
@@ -22,16 +25,25 @@ public class MediaController {
         this.mediaService = mediaService;
     }
 
-    @GetMapping("/media")
+    @GetMapping
     public ResponseEntity<Page<MediaModel>> getAllMedia(@RequestParam(defaultValue = "0") int page,
-                                                        @RequestParam(defaultValue = "10") int size) {
+                                                              @RequestParam(defaultValue = "10") int size) {
         Pageable pageable = PageRequest.of(page, size);
         Page<MediaModel> mediaPage = mediaService.getAllMedia(pageable);
 
-        return ResponseEntity.ok(mediaPage);
+        List<MediaModel> mediaResponses = new ArrayList<>();
+        for (MediaModel mediaModel : mediaPage.getContent()) {
+            String imageUrl = "localhost:8080/media/id/" + mediaModel.getId();
+            MediaModel mediaResponse = new MediaModel(mediaModel.getId(), mediaModel.getTitle(), imageUrl);
+            mediaResponses.add(mediaResponse);
+        }
+
+        Page<MediaModel> mediaResponsePage = new PageImpl<>(mediaResponses, pageable, mediaPage.getTotalElements());
+
+        return ResponseEntity.ok(mediaResponsePage);
     }
 
-    @GetMapping("/media/{mediaId}")
+    @GetMapping("/id/{mediaId}")
     public ResponseEntity<ByteArrayResource> downloadMediaById(@PathVariable String mediaId) {
         byte[] imageData = mediaService.getImageById(mediaId);
             ByteArrayResource resource = new ByteArrayResource(imageData);
@@ -40,7 +52,7 @@ public class MediaController {
                     .contentType(MediaType.IMAGE_PNG)
                     .body(resource);
     }
-    @GetMapping("/media/{title}")
+    @GetMapping("/title/{title}")
     public ResponseEntity<ByteArrayResource> downloadMedia(@PathVariable String title) {
         byte[] imageData = mediaService.getImageByTitle(title);
         ByteArrayResource resource = new ByteArrayResource(imageData);
@@ -50,14 +62,14 @@ public class MediaController {
                 .body(resource);
     }
 
-    @PostMapping("/media")
+    @PostMapping
     public ResponseEntity<String> uploadMedia(@RequestParam("file") MultipartFile file,
                                               @RequestParam("title") String title) {
         String mediaId = mediaService.saveImage(file, title);
             return ResponseEntity.ok(mediaId);
     }
 
-    @DeleteMapping("/media/{mediaId}")
+    @DeleteMapping("/{mediaId}")
     public ResponseEntity<Void> deleteMedia(@PathVariable String mediaId) {
         boolean deleted = mediaService.deleteMediaById(mediaId);
         if (deleted) {
@@ -66,7 +78,7 @@ public class MediaController {
             return ResponseEntity.notFound().build();
         }
     }
-    @PatchMapping("/media/{mediaId}")
+    @PatchMapping("/{mediaId}")
     public ResponseEntity<Void> patchMedia(@PathVariable String mediaId, @RequestBody Map<String, String> patchData) {
         boolean patched = mediaService.patchMedia(mediaId, patchData);
         if (patched) {
