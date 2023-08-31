@@ -1946,3 +1946,93 @@ com.fasterxml.jackson.databind.exc.InvalidDefinitionException: No serializer fou
 2023-08-30 02:01:31,990 DEBUG c.d.t.t.i.s.SecurityFilter [restartedMain] Filter 'securityFilter' configured for use
 2023-08-30 02:01:33,338 INFO c.d.t.t.TriziApplication [restartedMain] Started TriziApplication in 5.981 seconds (process running for 7.735)
 2023-08-30 02:01:33,344 INFO c.d.t.t.TriziApplication [restartedMain] Subiu
+2023-08-30 14:15:44,512 INFO c.d.t.t.TriziApplication [restartedMain] Starting TriziApplication using Java 17.0.8 with PID 5903 (/home/iruy/Programacao/Java/Ecommerce-DropShipping-Java-96603f889d7f0b452965d7163141a093f1f69f68/target/classes started by iruy in /home/iruy/Programacao/Java/Ecommerce-DropShipping-Java-96603f889d7f0b452965d7163141a093f1f69f68)
+2023-08-30 14:15:44,525 DEBUG c.d.t.t.TriziApplication [restartedMain] Running with Spring Boot v3.1.2, Spring v6.0.11
+2023-08-30 14:15:44,527 INFO c.d.t.t.TriziApplication [restartedMain] The following 1 profile is active: "test"
+2023-08-30 14:15:47,805 DEBUG c.d.t.t.i.s.SecurityFilter [restartedMain] Filter 'securityFilter' configured for use
+2023-08-30 14:15:48,966 INFO c.d.t.t.TriziApplication [restartedMain] Started TriziApplication in 5.024 seconds (process running for 7.093)
+2023-08-30 14:15:48,971 INFO c.d.t.t.TriziApplication [restartedMain] Subiu
+2023-08-31 14:20:40,301 INFO c.d.t.t.TriziApplication [restartedMain] Starting TriziApplication using Java 17.0.8 with PID 8213 (/home/iruy/Programacao/Java/Ecommerce-DropShipping-Java-96603f889d7f0b452965d7163141a093f1f69f68/target/classes started by iruy in /home/iruy/Programacao/Java/Ecommerce-DropShipping-Java-96603f889d7f0b452965d7163141a093f1f69f68)
+2023-08-31 14:20:40,311 DEBUG c.d.t.t.TriziApplication [restartedMain] Running with Spring Boot v3.1.2, Spring v6.0.11
+2023-08-31 14:20:40,313 INFO c.d.t.t.TriziApplication [restartedMain] The following 1 profile is active: "test"
+2023-08-31 14:20:43,800 DEBUG c.d.t.t.i.s.SecurityFilter [restartedMain] Filter 'securityFilter' configured for use
+2023-08-31 14:20:45,293 INFO c.d.t.t.TriziApplication [restartedMain] Started TriziApplication in 6.051 seconds (process running for 8.103)
+2023-08-31 14:20:45,304 INFO c.d.t.t.TriziApplication [restartedMain] Subiu
+2023-08-31 14:48:26,943 INFO c.d.t.t.TriziApplication [restartedMain] Starting TriziApplication using Java 17.0.8 with PID 9527 (/home/iruy/Programacao/Java/Ecommerce-DropShipping-Java-96603f889d7f0b452965d7163141a093f1f69f68/target/classes started by iruy in /home/iruy/Programacao/Java/Ecommerce-DropShipping-Java-96603f889d7f0b452965d7163141a093f1f69f68)
+2023-08-31 14:48:26,952 DEBUG c.d.t.t.TriziApplication [restartedMain] Running with Spring Boot v3.1.2, Spring v6.0.11
+2023-08-31 14:48:26,954 INFO c.d.t.t.TriziApplication [restartedMain] The following 1 profile is active: "test"
+2023-08-31 14:48:30,097 DEBUG c.d.t.t.i.s.SecurityFilter [restartedMain] Filter 'securityFilter' configured for use
+2023-08-31 14:48:31,248 INFO c.d.t.t.TriziApplication [restartedMain] Started TriziApplication in 4.992 seconds (process running for 6.558)
+2023-08-31 14:48:31,253 INFO c.d.t.t.TriziApplication [restartedMain] Subiu
+2023-08-31 14:50:52,062 INFO c.d.t.t.c.ProductController [http-nio-8080-exec-1] Entrando no getAll product
+2023-08-31 14:52:26,598 INFO c.d.t.t.TriziApplication [restartedMain] Starting TriziApplication using Java 17.0.8 with PID 9817 (/home/iruy/Programacao/Java/Ecommerce-DropShipping-Java-96603f889d7f0b452965d7163141a093f1f69f68/target/classes started by iruy in /home/iruy/Programacao/Java/Ecommerce-DropShipping-Java-96603f889d7f0b452965d7163141a093f1f69f68)
+2023-08-31 14:52:26,614 DEBUG c.d.t.t.TriziApplication [restartedMain] Running with Spring Boot v3.1.2, Spring v6.0.11
+2023-08-31 14:52:26,616 INFO c.d.t.t.TriziApplication [restartedMain] The following 1 profile is active: "test"
+2023-08-31 14:52:29,601 DEBUG c.d.t.t.i.s.SecurityFilter [restartedMain] Filter 'securityFilter' configured for use
+2023-08-31 14:52:30,556 INFO c.d.t.t.TriziApplication [restartedMain] Started TriziApplication in 4.772 seconds (process running for 6.121)
+2023-08-31 14:52:30,562 INFO c.d.t.t.TriziApplication [restartedMain] Subiu
+2023-08-31 15:06:13,113 INFO c.d.t.t.TriziApplication [restartedMain] Starting TriziApplication using Java 17.0.8 with PID 10548 (/home/iruy/Programacao/Java/Ecommerce-DropShipping-Java-96603f889d7f0b452965d7163141a093f1f69f68/target/classes started by iruy in /home/iruy/Programacao/Java/Ecommerce-DropShipping-Java-96603f889d7f0b452965d7163141a093f1f69f68)
+2023-08-31 15:06:13,139 DEBUG c.d.t.t.TriziApplication [restartedMain] Running with Spring Boot v3.1.2, Spring v6.0.11
+2023-08-31 15:06:13,140 INFO c.d.t.t.TriziApplication [restartedMain] The following 1 profile is active: "test"
+2023-08-31 15:06:16,341 DEBUG c.d.t.t.i.s.SecurityFilter [restartedMain] Filter 'securityFilter' configured for use
+2023-08-31 15:06:17,257 INFO c.d.t.t.TriziApplication [restartedMain] Started TriziApplication in 4.985 seconds (process running for 6.509)
+2023-08-31 15:06:17,264 INFO c.d.t.t.TriziApplication [restartedMain] Subiu
+2023-08-31 15:06:42,098 INFO c.d.t.t.c.ProductController [http-nio-8080-exec-2] Entrando no getAll product
+2023-08-31 15:07:14,054 INFO c.d.t.t.TriziApplication [restartedMain] Starting TriziApplication using Java 17.0.8 with PID 10709 (/home/iruy/Programacao/Java/Ecommerce-DropShipping-Java-96603f889d7f0b452965d7163141a093f1f69f68/target/classes started by iruy in /home/iruy/Programacao/Java/Ecommerce-DropShipping-Java-96603f889d7f0b452965d7163141a093f1f69f68)
+2023-08-31 15:07:14,071 DEBUG c.d.t.t.TriziApplication [restartedMain] Running with Spring Boot v3.1.2, Spring v6.0.11
+2023-08-31 15:07:14,073 INFO c.d.t.t.TriziApplication [restartedMain] The following 1 profile is active: "test"
+2023-08-31 15:07:16,990 DEBUG c.d.t.t.i.s.SecurityFilter [restartedMain] Filter 'securityFilter' configured for use
+2023-08-31 15:07:18,074 INFO c.d.t.t.TriziApplication [restartedMain] Started TriziApplication in 4.731 seconds (process running for 6.107)
+2023-08-31 15:07:18,083 INFO c.d.t.t.TriziApplication [restartedMain] Subiu
+2023-08-31 15:16:47,205 INFO c.d.t.t.TriziApplication [restartedMain] Starting TriziApplication using Java 17.0.8 with PID 11366 (/home/iruy/Programacao/Java/Ecommerce-DropShipping-Java-96603f889d7f0b452965d7163141a093f1f69f68/target/classes started by iruy in /home/iruy/Programacao/Java/Ecommerce-DropShipping-Java-96603f889d7f0b452965d7163141a093f1f69f68)
+2023-08-31 15:16:47,218 DEBUG c.d.t.t.TriziApplication [restartedMain] Running with Spring Boot v3.1.2, Spring v6.0.11
+2023-08-31 15:16:47,220 INFO c.d.t.t.TriziApplication [restartedMain] The following 1 profile is active: "test"
+2023-08-31 15:16:51,294 DEBUG c.d.t.t.i.s.SecurityFilter [restartedMain] Filter 'securityFilter' configured for use
+2023-08-31 15:16:52,385 INFO c.d.t.t.TriziApplication [restartedMain] Started TriziApplication in 5.781 seconds (process running for 7.229)
+2023-08-31 15:16:52,390 INFO c.d.t.t.TriziApplication [restartedMain] Subiu
+2023-08-31 15:46:02,629 INFO c.d.t.t.TriziApplication [restartedMain] Starting TriziApplication using Java 17.0.8 with PID 12978 (/home/iruy/Programacao/Java/Ecommerce-DropShipping-Java-96603f889d7f0b452965d7163141a093f1f69f68/target/classes started by iruy in /home/iruy/Programacao/Java/Ecommerce-DropShipping-Java-96603f889d7f0b452965d7163141a093f1f69f68)
+2023-08-31 15:46:02,646 DEBUG c.d.t.t.TriziApplication [restartedMain] Running with Spring Boot v3.1.2, Spring v6.0.11
+2023-08-31 15:46:02,647 INFO c.d.t.t.TriziApplication [restartedMain] The following 1 profile is active: "test"
+2023-08-31 15:46:06,062 DEBUG c.d.t.t.i.s.SecurityFilter [restartedMain] Filter 'securityFilter' configured for use
+2023-08-31 15:50:00,489 INFO c.d.t.t.TriziApplication [restartedMain] Starting TriziApplication using Java 17.0.8 with PID 13217 (/home/iruy/Programacao/Java/Ecommerce-DropShipping-Java-96603f889d7f0b452965d7163141a093f1f69f68/target/classes started by iruy in /home/iruy/Programacao/Java/Ecommerce-DropShipping-Java-96603f889d7f0b452965d7163141a093f1f69f68)
+2023-08-31 15:50:00,512 DEBUG c.d.t.t.TriziApplication [restartedMain] Running with Spring Boot v3.1.2, Spring v6.0.11
+2023-08-31 15:50:00,514 INFO c.d.t.t.TriziApplication [restartedMain] The following 1 profile is active: "test"
+2023-08-31 15:50:03,659 DEBUG c.d.t.t.i.s.SecurityFilter [restartedMain] Filter 'securityFilter' configured for use
+2023-08-31 15:50:35,807 INFO c.d.t.t.TriziApplication [restartedMain] Starting TriziApplication using Java 17.0.8 with PID 13323 (/home/iruy/Programacao/Java/Ecommerce-DropShipping-Java-96603f889d7f0b452965d7163141a093f1f69f68/target/classes started by iruy in /home/iruy/Programacao/Java/Ecommerce-DropShipping-Java-96603f889d7f0b452965d7163141a093f1f69f68)
+2023-08-31 15:50:35,858 DEBUG c.d.t.t.TriziApplication [restartedMain] Running with Spring Boot v3.1.2, Spring v6.0.11
+2023-08-31 15:50:35,860 INFO c.d.t.t.TriziApplication [restartedMain] The following 1 profile is active: "test"
+2023-08-31 15:50:39,314 DEBUG c.d.t.t.i.s.SecurityFilter [restartedMain] Filter 'securityFilter' configured for use
+2023-08-31 15:51:21,786 INFO c.d.t.t.TriziApplication [restartedMain] Starting TriziApplication using Java 17.0.8 with PID 13421 (/home/iruy/Programacao/Java/Ecommerce-DropShipping-Java-96603f889d7f0b452965d7163141a093f1f69f68/target/classes started by iruy in /home/iruy/Programacao/Java/Ecommerce-DropShipping-Java-96603f889d7f0b452965d7163141a093f1f69f68)
+2023-08-31 15:51:21,805 DEBUG c.d.t.t.TriziApplication [restartedMain] Running with Spring Boot v3.1.2, Spring v6.0.11
+2023-08-31 15:51:21,806 INFO c.d.t.t.TriziApplication [restartedMain] The following 1 profile is active: "test"
+2023-08-31 15:51:25,313 DEBUG c.d.t.t.i.s.SecurityFilter [restartedMain] Filter 'securityFilter' configured for use
+2023-08-31 15:51:34,638 INFO c.d.t.t.TriziApplication [restartedMain] Starting TriziApplication using Java 17.0.8 with PID 13517 (/home/iruy/Programacao/Java/Ecommerce-DropShipping-Java-96603f889d7f0b452965d7163141a093f1f69f68/target/classes started by iruy in /home/iruy/Programacao/Java/Ecommerce-DropShipping-Java-96603f889d7f0b452965d7163141a093f1f69f68)
+2023-08-31 15:51:34,649 DEBUG c.d.t.t.TriziApplication [restartedMain] Running with Spring Boot v3.1.2, Spring v6.0.11
+2023-08-31 15:51:34,651 INFO c.d.t.t.TriziApplication [restartedMain] The following 1 profile is active: "test"
+2023-08-31 15:51:37,779 DEBUG c.d.t.t.i.s.SecurityFilter [restartedMain] Filter 'securityFilter' configured for use
+2023-08-31 15:52:24,189 INFO c.d.t.t.TriziApplication [restartedMain] Starting TriziApplication using Java 17.0.8 with PID 13620 (/home/iruy/Programacao/Java/Ecommerce-DropShipping-Java-96603f889d7f0b452965d7163141a093f1f69f68/target/classes started by iruy in /home/iruy/Programacao/Java/Ecommerce-DropShipping-Java-96603f889d7f0b452965d7163141a093f1f69f68)
+2023-08-31 15:52:24,204 DEBUG c.d.t.t.TriziApplication [restartedMain] Running with Spring Boot v3.1.2, Spring v6.0.11
+2023-08-31 15:52:24,206 INFO c.d.t.t.TriziApplication [restartedMain] The following 1 profile is active: "test"
+2023-08-31 15:52:27,564 DEBUG c.d.t.t.i.s.SecurityFilter [restartedMain] Filter 'securityFilter' configured for use
+2023-08-31 15:52:28,590 INFO c.d.t.t.TriziApplication [restartedMain] Started TriziApplication in 5.126 seconds (process running for 6.548)
+2023-08-31 15:52:28,598 INFO c.d.t.t.TriziApplication [restartedMain] Subiu
+2023-08-31 15:54:29,544 INFO c.d.t.t.TriziApplication [restartedMain] Starting TriziApplication using Java 17.0.8 with PID 13822 (/home/iruy/Programacao/Java/Ecommerce-DropShipping-Java-96603f889d7f0b452965d7163141a093f1f69f68/target/classes started by iruy in /home/iruy/Programacao/Java/Ecommerce-DropShipping-Java-96603f889d7f0b452965d7163141a093f1f69f68)
+2023-08-31 15:54:29,562 DEBUG c.d.t.t.TriziApplication [restartedMain] Running with Spring Boot v3.1.2, Spring v6.0.11
+2023-08-31 15:54:29,564 INFO c.d.t.t.TriziApplication [restartedMain] The following 1 profile is active: "test"
+2023-08-31 15:54:33,390 DEBUG c.d.t.t.i.s.SecurityFilter [restartedMain] Filter 'securityFilter' configured for use
+2023-08-31 15:55:12,021 INFO c.d.t.t.TriziApplication [restartedMain] Starting TriziApplication using Java 17.0.8 with PID 13924 (/home/iruy/Programacao/Java/Ecommerce-DropShipping-Java-96603f889d7f0b452965d7163141a093f1f69f68/target/classes started by iruy in /home/iruy/Programacao/Java/Ecommerce-DropShipping-Java-96603f889d7f0b452965d7163141a093f1f69f68)
+2023-08-31 15:55:12,030 DEBUG c.d.t.t.TriziApplication [restartedMain] Running with Spring Boot v3.1.2, Spring v6.0.11
+2023-08-31 15:55:12,032 INFO c.d.t.t.TriziApplication [restartedMain] The following 1 profile is active: "test"
+2023-08-31 15:55:15,312 DEBUG c.d.t.t.i.s.SecurityFilter [restartedMain] Filter 'securityFilter' configured for use
+2023-08-31 15:57:49,391 INFO c.d.t.t.TriziApplication [restartedMain] Starting TriziApplication using Java 17.0.8 with PID 14128 (/home/iruy/Programacao/Java/Ecommerce-DropShipping-Java-96603f889d7f0b452965d7163141a093f1f69f68/target/classes started by iruy in /home/iruy/Programacao/Java/Ecommerce-DropShipping-Java-96603f889d7f0b452965d7163141a093f1f69f68)
+2023-08-31 15:57:49,402 DEBUG c.d.t.t.TriziApplication [restartedMain] Running with Spring Boot v3.1.2, Spring v6.0.11
+2023-08-31 15:57:49,405 INFO c.d.t.t.TriziApplication [restartedMain] The following 1 profile is active: "test"
+2023-08-31 15:57:52,452 DEBUG c.d.t.t.i.s.SecurityFilter [restartedMain] Filter 'securityFilter' configured for use
+2023-08-31 15:57:53,415 INFO c.d.t.t.TriziApplication [restartedMain] Started TriziApplication in 4.752 seconds (process running for 6.138)
+2023-08-31 15:57:53,420 INFO c.d.t.t.TriziApplication [restartedMain] Subiu
+2023-08-31 15:58:41,766 INFO c.d.t.t.TriziApplication [restartedMain] Starting TriziApplication using Java 17.0.8 with PID 14265 (/home/iruy/Programacao/Java/Ecommerce-DropShipping-Java-96603f889d7f0b452965d7163141a093f1f69f68/target/classes started by iruy in /home/iruy/Programacao/Java/Ecommerce-DropShipping-Java-96603f889d7f0b452965d7163141a093f1f69f68)
+2023-08-31 15:58:41,781 DEBUG c.d.t.t.TriziApplication [restartedMain] Running with Spring Boot v3.1.2, Spring v6.0.11
+2023-08-31 15:58:41,782 INFO c.d.t.t.TriziApplication [restartedMain] The following 1 profile is active: "test"
+2023-08-31 15:58:45,531 DEBUG c.d.t.t.i.s.SecurityFilter [restartedMain] Filter 'securityFilter' configured for use
+2023-08-31 15:58:46,956 INFO c.d.t.t.TriziApplication [restartedMain] Started TriziApplication in 5.916 seconds (process running for 7.186)
+2023-08-31 15:58:46,964 INFO c.d.t.t.TriziApplication [restartedMain] Subiu
