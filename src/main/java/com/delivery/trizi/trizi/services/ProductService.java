@@ -1,8 +1,6 @@
 package com.delivery.trizi.trizi.services;
 
-import com.delivery.trizi.trizi.domain.media.MediaModel;
 import com.delivery.trizi.trizi.domain.product.ProductModel;
-import com.delivery.trizi.trizi.repositories.MediaRepository;
 import com.delivery.trizi.trizi.repositories.ProductRepository;
 import com.delivery.trizi.trizi.services.exception.DataBaseException;
 import com.delivery.trizi.trizi.services.exception.WrongObjectException;
@@ -19,10 +17,8 @@ import java.util.Optional;
 public class ProductService implements Serializable {
 
     private final ProductRepository productRepository;
-    private final MediaRepository mediaRepository;
-    public ProductService(ProductRepository productRepository, MediaRepository mediaRepository) {
+    public ProductService(ProductRepository productRepository) {
         this.productRepository = productRepository;
-        this.mediaRepository = mediaRepository;
     }
 
 
@@ -47,8 +43,4 @@ public class ProductService implements Serializable {
         return productRepository.save(productModel);
     }
 
-    public MediaModel getImageByTitle(String title) {
-        Optional<MediaModel> optionalMediaModel = mediaRepository.getImageByTitle(title);
-        return optionalMediaModel.orElse(null);
-    }
 }

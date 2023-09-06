@@ -4,18 +4,35 @@ spring:
       uri: mongodb://delivery:delivery@localhost:27017/delivery?authSource=admin
       database: delivery
       auto-index-creation: true
-api:
-  security:
-    token:
-      secret: ${JWT_SECRET:my-secret-key}
-  logging:
-    level:
-      com:
-        delivery:
-          trizi:
-            trizi: DEBUG
+
   servlet:
     multipart:
       max-file-size: 256MB
       max-request-size: 256MB
       enabled: true
+
+api:
+  security:
+    token:
+      secret: ${JWT_SECRET:my-secret-key}
+
+logging:
+  level:
+    com:
+      delivery:
+        trizi:
+          trizi: DEBUG
+
+cloud:
+  aws:
+    credentials:
+      access-key: ${ACCESS_KEY:AKIAR63SZWDKAEL33O4U}
+      secret-key: ${SECRET_KEY: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}
+    region:
+      static: us-east-2
+    stack:
+      auto: false
+
+application:
+  bucket:
+    name: productss3delivery

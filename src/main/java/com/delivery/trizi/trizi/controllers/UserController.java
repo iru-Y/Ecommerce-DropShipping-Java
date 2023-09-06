@@ -2,61 +2,59 @@ package com.delivery.trizi.trizi.controllers;
 
 import com.delivery.trizi.trizi.domain.user.UserDto;
 import com.delivery.trizi.trizi.domain.user.UserModel;
-import com.delivery.trizi.trizi.services.SecurityService;
 import com.delivery.trizi.trizi.services.UserService;
 
-import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import org.springframework.beans.BeanUtils;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
-@Log4j2
+
 @RestController
 @RequestMapping("users")
+@AllArgsConstructor
 public class UserController {
-
     private final UserService userService;
-    private final SecurityService securityService;
-
-    public UserController(UserService userService, SecurityService securityService) {
-        this.userService = userService;
-        this.securityService = securityService;
-    }
 
     @GetMapping
-    public Page<UserModel> getAll(@RequestParam(defaultValue = "0") int page,
-                                  @RequestParam(defaultValue = "100") int size) {
-        Pageable pageable = PageRequest.of(page, size);
-        log.info("Requisitada lista de usuários (página {})...", page);
-        return userService.getAll(pageable);
+    public ResponseEntity<List<UserModel>> getAllUsers() {
+        List<UserModel> users = userService.getAll();
+        return ResponseEntity.ok().body(users);
     }
 
-    @GetMapping(value = "/{id}")
-    public UserModel getById (@PathVariable String id){
-        return userService.getById(id).orElseThrow();
+    @GetMapping("/{userId}")
+    public ResponseEntity<UserModel> getUserById(@PathVariable String userId) {
+        UserModel user = userService.getById(userId);
+        return ResponseEntity.ok().body(user);
     }
 
     @PostMapping
-    public ResponseEntity<UserModel> post (@RequestBody @Valid UserDto userDto) {
-
-        var encryptedPassword = new BCryptPasswordEncoder().encode(userDto.password());
-        var newUser = new UserModel().builder()
-                .login(userDto.login())
-                .mail(userDto.mail())
-                .role(userDto.role())
-                .password(encryptedPassword)
-                .build();
-
-        return ResponseEntity.ok().body(this.securityService.post(newUser));
+    public ResponseEntity<UserModel> createUserWithImage(@RequestParam("userJson") String userJson,
+                                                         @RequestParam("file") MultipartFile file) {
+        UserModel userModel = new UserModel();
+        BeanUtils.copyProperties(userJson, userModel);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(userService.createUserWithImage(userJson, file));
     }
 
-    @GetMapping(value = "/login/{login}")
-    public UserModel findByLogin (@PathVariable String login) {
-        return userService.findByLogin(login);
+    @PutMapping("/{userId}")
+    public ResponseEntity<UserModel> updateUser(@PathVariable String userId,
+                                                @RequestParam("userJson") String userJson,
+                                                @RequestParam("file") MultipartFile file) {
+        UserModel userModel = new UserModel();
+        BeanUtils.copyProperties(userJson, userModel);
+        UserModel updatedUser = userService.updateUser(userId, userModel, file);
+        return ResponseEntity.ok().body(updatedUser);
+    }
+
+    @DeleteMapping("/{userId}")
+    public ResponseEntity<String> deleteUser(@PathVariable String userId) {
+        userService.deleteUser(userId);
+        return ResponseEntity.ok().body("Usuário excluído com sucesso.");
     }
 }
+

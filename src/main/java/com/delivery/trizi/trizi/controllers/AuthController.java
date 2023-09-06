@@ -8,28 +8,20 @@ import com.delivery.trizi.trizi.infra.security.jwtUtils.TokenService;
 import com.delivery.trizi.trizi.services.SecurityService;
 
 import com.delivery.trizi.trizi.services.UserService;
+import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Optional;
+import org.springframework.web.bind.annotation.*;
 
 @Log4j2
 @RestController
 @RequestMapping(value = "/auth")
+@AllArgsConstructor
 public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final TokenService tokenService;
-
-    public AuthController(AuthenticationManager authenticationManager, SecurityService securityService, TokenService tokenService, UserService userService) {
-        this.authenticationManager = authenticationManager;
-        this.tokenService = tokenService;
-    }
 
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody RoleLoginDto data){
@@ -37,7 +29,7 @@ public class AuthController {
         var auth = this.authenticationManager.authenticate(usernamePassword);
 
         var token = tokenService.generateToken((UserModel) auth.getPrincipal());
-        log.info("Token gerado");
+
         return ResponseEntity.ok(new GeneratedToken(token));
     }
 }
