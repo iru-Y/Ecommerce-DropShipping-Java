@@ -1,11 +1,9 @@
 package com.delivery.trizi.trizi.controllers;
 
-import com.delivery.trizi.trizi.domain.user.UserDto;
 import com.delivery.trizi.trizi.domain.user.UserModel;
 import com.delivery.trizi.trizi.services.UserService;
 
 import lombok.AllArgsConstructor;
-import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,12 +31,12 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<UserModel> createUserWithImage(@RequestParam("userJson") String userJson,
+    public ResponseEntity<UserModel> post(@RequestParam("userJson") String userJson,
                                                          @RequestParam("file") MultipartFile file) {
         UserModel userModel = new UserModel();
         BeanUtils.copyProperties(userJson, userModel);
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(userService.createUserWithImage(userJson, file));
+                .body(userService.post(userJson, file));
     }
 
     @PutMapping("/{userId}")
@@ -47,7 +45,7 @@ public class UserController {
                                                 @RequestParam("file") MultipartFile file) {
         UserModel userModel = new UserModel();
         BeanUtils.copyProperties(userJson, userModel);
-        UserModel updatedUser = userService.updateUser(userId, userModel, file);
+        UserModel updatedUser = userService.put(userId, userModel, file);
         return ResponseEntity.ok().body(updatedUser);
     }
 

@@ -6963,3 +6963,10 @@ com.mongodb.MongoWriteException: Write operation error on server localhost:27017
 2023-09-06 17:27:43,840 INFO c.d.t.t.i.o.OpenApiInfra [restartedMain] Gerando swagger da aplicação
 2023-09-06 17:27:44,753 INFO c.d.t.t.TriziApplication [restartedMain] Started TriziApplication in 5.691 seconds (process running for 7.476)
 2023-09-06 17:27:44,756 INFO c.d.t.t.TriziApplication [restartedMain] Subiu
+2023-09-06 17:49:42,042 INFO c.d.t.t.TriziApplication [restartedMain] Starting TriziApplication using Java 17.0.8.1 with PID 22767 (/home/iruy/Programacao/Java/Ecommerce-DropShipping-Java/target/classes started by iruy in /home/iruy/Programacao/Java/Ecommerce-DropShipping-Java)
+2023-09-06 17:49:42,066 DEBUG c.d.t.t.TriziApplication [restartedMain] Running with Spring Boot v3.1.2, Spring v6.0.11
+2023-09-06 17:49:42,069 INFO c.d.t.t.TriziApplication [restartedMain] The following 1 profile is active: "test"
+2023-09-06 17:49:46,510 DEBUG c.d.t.t.i.s.SecurityFilter [restartedMain] Filter 'securityFilter' configured for use
+2023-09-06 17:49:47,414 INFO c.d.t.t.i.o.OpenApiInfra [restartedMain] Gerando swagger da aplicação
+2023-09-06 17:49:48,660 INFO c.d.t.t.TriziApplication [restartedMain] Started TriziApplication in 7.823 seconds (process running for 9.528)
+2023-09-06 17:49:48,666 INFO c.d.t.t.TriziApplication [restartedMain] Subiu

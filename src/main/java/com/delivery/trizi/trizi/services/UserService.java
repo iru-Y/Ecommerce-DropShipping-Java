@@ -1,6 +1,5 @@
 package com.delivery.trizi.trizi.services;
 
-import com.delivery.trizi.trizi.domain.user.UserDto;
 import com.delivery.trizi.trizi.domain.user.UserModel;
 import com.delivery.trizi.trizi.infra.storage.S3ImageService;
 import com.delivery.trizi.trizi.repositories.UserRepository;
@@ -35,7 +34,7 @@ public class UserService {
         return Optional.ofNullable(userRepository.findByLogin(login));
     }
 
-    public UserModel updateUser(String userId, UserModel userModel, MultipartFile file) {
+    public UserModel put(String userId, UserModel userModel, MultipartFile file) {
         Optional<UserModel> existingUserOptional = userRepository.findById(userId);
 
         if (existingUserOptional.isPresent()) {
@@ -46,7 +45,7 @@ public class UserService {
 
             if (file != null && !file.isEmpty()) {
                 String imageLink = s3ImageService.uploadFile(file);
-                existingUser.setProfileImageFileName(imageLink);
+                existingUser.setProfileImage(imageLink);
             }
             return userRepository.save(existingUser);
         }
@@ -59,7 +58,7 @@ public class UserService {
 
         if (userOptional.isPresent()) {
             UserModel user = userOptional.get();
-            String profileImageLink = user.getProfileImageFileName();
+            String profileImageLink = user.getProfileImage();
             if (profileImageLink != null && !profileImageLink.isEmpty()) {
                 s3ImageService.deleteFile(profileImageLink);
             }
@@ -70,11 +69,11 @@ public class UserService {
         return false;
     }
 
-    public UserModel createUserWithImage(String userJson, MultipartFile file) {
+    public UserModel post(String userJson, MultipartFile file) {
         UserModel userModel = new Gson().fromJson(userJson, UserModel.class);
         if (file != null && !file.isEmpty()) {
             String imageLink = s3ImageService.getFileDownloadUrl(file.getOriginalFilename());
-            userModel.setProfileImageFileName(imageLink);
+            userModel.setProfileImage(imageLink);
         }
         return userRepository.save(userModel);
     }

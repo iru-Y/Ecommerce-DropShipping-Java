@@ -34,7 +34,7 @@ public class UserModel implements Serializable, UserDetails {
     @Indexed(unique = true)
     private String mail;
     private RoleEnum role;
-    private String profileImageFileName;
+    private String profileImage;
 
 
     @Override
