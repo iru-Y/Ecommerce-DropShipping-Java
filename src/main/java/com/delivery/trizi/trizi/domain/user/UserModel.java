@@ -36,6 +36,13 @@ public class UserModel implements Serializable, UserDetails {
     private RoleEnum role;
     private String profileImage;
 
+    public UserModel(String login, String password, String mail, RoleEnum role, String profileImage) {
+        this.login = login;
+        this.password = password;
+        this.mail = mail;
+        this.role = role;
+        this.profileImage = profileImage;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

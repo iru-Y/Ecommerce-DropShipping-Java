@@ -1,80 +1,77 @@
 package com.delivery.trizi.trizi.services;
 
 import com.delivery.trizi.trizi.domain.user.UserModel;
-import com.delivery.trizi.trizi.infra.storage.S3ImageService;
+import com.delivery.trizi.trizi.infra.storage.StorageService;
 import com.delivery.trizi.trizi.repositories.UserRepository;
-import com.delivery.trizi.trizi.services.exception.UserNotFoundException;
-import com.google.gson.Gson;
+import com.delivery.trizi.trizi.services.exception.DataBaseException;
+import com.delivery.trizi.trizi.services.exception.WrongObjectException;
+import com.delivery.trizi.trizi.utils.IpAddressUtil;
 import lombok.AllArgsConstructor;
+import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.BeanUtils;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.net.UnknownHostException;
 import java.util.List;
-import java.util.Optional;
 
+@Log4j2
 @Service
 @AllArgsConstructor
-public class UserService {
+public class UserService implements UserDetailsService {
+
     private final UserRepository userRepository;
-    private final S3ImageService s3ImageService;
+    private final StorageService storageService;
+    private final IpAddressUtil ipAddressUtil;
 
     public List<UserModel> getAll() {
         return userRepository.findAll();
     }
 
-    public UserModel getById(String id) {
-        return userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("Usuário não encontrado para o id " + id));
-    }
-
-    public UserModel post(UserModel user) {
-        return userRepository.save(user);
-    }
-
-    public Optional<UserModel> findByLogin(String login) {
-        return Optional.ofNullable(userRepository.findByLogin(login));
-    }
-
-    public UserModel put(String userId, UserModel userModel, MultipartFile file) {
-        Optional<UserModel> existingUserOptional = userRepository.findById(userId);
-
-        if (existingUserOptional.isPresent()) {
-            UserModel existingUser = existingUserOptional.get();
-            existingUser.setLogin(userModel.getLogin());
-            existingUser.setMail(userModel.getMail());
-            existingUser.setRole(userModel.getRole());
-
-            if (file != null && !file.isEmpty()) {
-                String imageLink = s3ImageService.uploadFile(file);
-                existingUser.setProfileImage(imageLink);
-            }
-            return userRepository.save(existingUser);
+    public UserModel getById(String id){
+        if (id != null) {
+            return userRepository.findById(id).orElseThrow(
+                    () -> new DataBaseException("Não foi possível encontrar o usuário com o ID: " + id)
+            );
         }
+        log.info("O ID está nulo");
+        throw new DataBaseException("Por favor, o ID não pode ser nulo.");
+    }
 
+    public UserModel post(UserModel userModel) {
+        if (userModel == null) {
+            throw new WrongObjectException("O usuário não pode estar nulo.");
+        }
+        return userRepository.save(userModel);
+    }
+
+    public UserModel put(String id, UserModel userModel) {
+        UserModel existingUser = getById(id);
+        BeanUtils.copyProperties(userModel, existingUser);
+        return userRepository.save(existingUser);
+    }
+
+    public void deleteUser(String Id) {
+        UserModel user = getById(Id);
+        userRepository.delete(user);
+    }
+
+    public UserModel post(String id, MultipartFile file) throws UnknownHostException {
+        UserModel user = getById(id);
+
+        if (file != null && !file.isEmpty()) {
+            String imageLink = ipAddressUtil.getServerUrl("images/type/") + storageService.uploadFile(file);
+            user.setProfileImage(imageLink);
+            return userRepository.save(user);
+        }
         return null;
     }
 
-    public boolean deleteUser(String userId) {
-        Optional<UserModel> userOptional = userRepository.findById(userId);
-
-        if (userOptional.isPresent()) {
-            UserModel user = userOptional.get();
-            String profileImageLink = user.getProfileImage();
-            if (profileImageLink != null && !profileImageLink.isEmpty()) {
-                s3ImageService.deleteFile(profileImageLink);
-            }
-
-            userRepository.delete(user);
-            return true;
-        }
-        return false;
-    }
-
-    public UserModel post(String userJson, MultipartFile file) {
-        UserModel userModel = new Gson().fromJson(userJson, UserModel.class);
-        if (file != null && !file.isEmpty()) {
-            String imageLink = s3ImageService.getFileDownloadUrl(file.getOriginalFilename());
-            userModel.setProfileImage(imageLink);
-        }
-        return userRepository.save(userModel);
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return userRepository.findByLogin(username);
     }
 }

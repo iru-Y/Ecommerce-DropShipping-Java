@@ -5,12 +5,6 @@ spring:
       database: delivery
       auto-index-creation: true
 
-  servlet:
-    multipart:
-      max-file-size: 256MB
-      max-request-size: 256MB
-      enabled: true
-
 api:
   security:
     token:
@@ -26,8 +20,8 @@ logging:
 cloud:
   aws:
     credentials:
-      access-key: ${ACCESS_KEY:AKIAR63SZWDKAEL33O4U}
-      secret-key: ${SECRET_KEY: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}
+      access-key: ${ACCESS_KEY:AKIAR63SZWDKFTC2ZVTQ}
+      secret-key: ${SECRET_KEY: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}
     region:
       static: us-east-2
     stack:

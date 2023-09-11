@@ -5,9 +5,6 @@ import com.delivery.trizi.trizi.infra.security.jwtUtils.RoleLoginDto;
 import com.delivery.trizi.trizi.domain.user.UserModel;
 import com.delivery.trizi.trizi.infra.security.jwtUtils.TokenService;
 
-import com.delivery.trizi.trizi.services.SecurityService;
-
-import com.delivery.trizi.trizi.services.UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.ResponseEntity;

@@ -1,8 +1,8 @@
 package com.delivery.trizi.trizi.infra.security;
 
 import com.delivery.trizi.trizi.infra.security.jwtUtils.TokenService;
-import com.delivery.trizi.trizi.services.SecurityService;
 
+import com.delivery.trizi.trizi.services.UserService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -10,7 +10,6 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -24,14 +23,14 @@ import java.io.IOException;
 public class SecurityFilter extends OncePerRequestFilter {
 
     private final TokenService tokenService;
-    private final SecurityService securityService;
+    private final UserService userService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         var token = recoverToken(request);
         if (token != null) {
             var login = tokenService.validateToken(token);
-            var userDetails = securityService.findByLogin(login);
+            var userDetails = userService.loadUserByUsername(login);
 
             if (userDetails == null) {
                 logger.info("O userDetails está nulo");
