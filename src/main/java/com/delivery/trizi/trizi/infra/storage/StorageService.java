@@ -46,9 +46,9 @@ public class StorageService {
         }
     }
 
-    public byte[] getFile(String id) {
+    public byte[] getFile(String fileName) {
         try {
-            Path filePath = Paths.get(uploadDirectory, id);
+            Path filePath = Paths.get(uploadDirectory, fileName);
             return Files.readAllBytes(filePath);
         } catch (IOException e) {
             throw new RuntimeException("Erro ao ler arquivo: " + e.getMessage());

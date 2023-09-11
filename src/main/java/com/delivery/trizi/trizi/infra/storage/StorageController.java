@@ -2,12 +2,14 @@ package com.delivery.trizi.trizi.infra.storage;
 
 import lombok.AllArgsConstructor;
 import org.springframework.core.io.ByteArrayResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 @RestController
-@RequestMapping(value = "/images")
+@RequestMapping(value = "/data")
 @CrossOrigin(value = "*")
 @AllArgsConstructor
 public class StorageController {
@@ -21,18 +23,22 @@ public class StorageController {
 
     @GetMapping("/type/{id}")
     public ResponseEntity <byte[]> viewFile (@PathVariable String id) {
-        return ResponseEntity.ok().body(storageService.getFile(id));
+        HttpHeaders headers = new HttpHeaders();
+
+        headers.setContentType(MediaType.IMAGE_PNG);
+
+        return ResponseEntity.ok().headers(headers).body(storageService.getFile(id));
     }
 
-    @GetMapping("/download/{fileName}")
-    public ResponseEntity<ByteArrayResource> downloadFile(@PathVariable String fileName) {
-        byte[] data = storageService.getFile(fileName);
+    @GetMapping("/download/{id}")
+    public ResponseEntity<ByteArrayResource> downloadFile(@PathVariable String id) {
+        byte[] data = storageService.getFile(id);
         ByteArrayResource resource = new ByteArrayResource(data);
         return ResponseEntity
                 .ok()
                 .contentLength(data.length)
                 .header("Content-type", "application/octet-stream")
-                .header("Content-disposition", "attachment; filename=\"" + fileName + "\"")
+                .header("Content-disposition", "attachment; filename=\"" + id + "\"")
                 .body(resource);
     }
 

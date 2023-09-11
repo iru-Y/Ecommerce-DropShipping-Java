@@ -2,21 +2,21 @@ package com.delivery.trizi.trizi.controllers;
 
 import com.delivery.trizi.trizi.domain.user.UserModel;
 import com.delivery.trizi.trizi.services.UserService;
-import com.delivery.trizi.trizi.utils.IpAddressUtil;
 import com.google.gson.Gson;
 import lombok.AllArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.BeanUtils;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.List;
 
+@Log4j2
 @RestController
 @RequestMapping("users")
 @AllArgsConstructor
@@ -30,9 +30,9 @@ public class UserController {
         return ResponseEntity.ok().body(users);
     }
 
-    @GetMapping("/{userId}")
-    public ResponseEntity<UserModel> getByUserID(@PathVariable String userId) throws UnknownHostException {
-        UserModel user = userService.getById(userId);
+    @GetMapping("/id/{id}")
+    public ResponseEntity<UserModel> getByUserID(@PathVariable String id) throws UnknownHostException {
+        UserModel user = userService.getById(id);
         if (user != null) {
             String profileImageUrl = user.getProfileImage();
             user.setProfileImage(profileImageUrl);
@@ -45,7 +45,7 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<UserModel> post(@RequestParam("user") String userJson,
-                                          @RequestParam("file") MultipartFile file) throws UnknownHostException {
+                                          @RequestParam("file") MultipartFile file) throws UnknownHostException, SocketException {
         var userDto = new Gson().fromJson(userJson, UserModel.class);
         String encryptedPassword = new BCryptPasswordEncoder().encode(userDto.getPassword());
         var user = new UserModel(
@@ -61,22 +61,35 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
     }
 
-    @PutMapping("/{userId}")
-    public ResponseEntity<UserModel> updateUser(@PathVariable String userId,
-                                                @RequestParam("userJson") String userJson,
-                                                @RequestParam("file") MultipartFile file) throws UnknownHostException {
+    @PutMapping("/{id}")
+    public ResponseEntity<UserModel> updateUser(@PathVariable String id,
+                                                @RequestParam("user") String userJson,
+                                                @RequestParam("file") MultipartFile file) throws UnknownHostException, SocketException {
         UserModel userModel = new UserModel();
         BeanUtils.copyProperties(userJson, userModel);
-        UserModel updatedUser = userService.put(userId, userModel);
-        UserModel imageLink = userService.post(userId, file);
+        UserModel updatedUser = userService.put(id, userModel);
+        UserModel imageLink = userService.post(id, file);
         updatedUser.setProfileImage(imageLink.getProfileImage());
 
         return ResponseEntity.ok().body(updatedUser);
     }
 
-    @DeleteMapping("/{userId}")
-    public ResponseEntity<String> deleteUser(@PathVariable String userId) {
-        userService.deleteUser(userId);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteUser(@PathVariable String id) {
+        userService.deleteUser(id);
         return ResponseEntity.ok().body("Usuário excluído com sucesso.");
+    }
+
+    @GetMapping("/login/{login}")
+    public ResponseEntity<UserModel> getByLogin(@PathVariable String login) throws UnknownHostException {
+        UserModel user = userService.getByLogin(login);
+        if (user != null) {
+            String profileImageUrl = user.getProfileImage();
+            user.setProfileImage(profileImageUrl);
+            log.info("Entrou no getByLogin");
+            return ResponseEntity.ok().body(user);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

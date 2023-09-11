@@ -15,6 +15,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.List;
 
@@ -59,11 +60,11 @@ public class UserService implements UserDetailsService {
         userRepository.delete(user);
     }
 
-    public UserModel post(String id, MultipartFile file) throws UnknownHostException {
+    public UserModel post(String id, MultipartFile file) throws UnknownHostException, SocketException {
         UserModel user = getById(id);
 
         if (file != null && !file.isEmpty()) {
-            String imageLink = ipAddressUtil.getServerUrl("images/type/") + storageService.uploadFile(file);
+            String imageLink = ipAddressUtil.getServerUrl("data/type/") + storageService.uploadFile(file);
             user.setProfileImage(imageLink);
             return userRepository.save(user);
         }
@@ -73,5 +74,13 @@ public class UserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userRepository.findByLogin(username);
+    }
+
+    public UserModel getByLogin(String login){
+        if (login != null) {
+            return userRepository.findByLogin(login);
+        }
+        log.info("O login está nulo");
+        throw new DataBaseException("Por favor, o login não pode ser nulo.");
     }
 }
