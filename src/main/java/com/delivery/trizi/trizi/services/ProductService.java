@@ -1,95 +1,78 @@
 package com.delivery.trizi.trizi.services;
 
 import com.delivery.trizi.trizi.domain.product.ProductModel;
+import com.delivery.trizi.trizi.domain.user.UserModel;
 import com.delivery.trizi.trizi.infra.storage.StorageService;
 import com.delivery.trizi.trizi.repositories.ProductRepository;
 import com.delivery.trizi.trizi.services.exception.DataBaseException;
-import com.delivery.trizi.trizi.services.exception.WrongObjectException;
-import com.delivery.trizi.trizi.utils.IpAddressUtil;
+import com.google.gson.Gson;
 import lombok.AllArgsConstructor;
-import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.Serializable;
-import java.net.SocketException;
-import java.net.UnknownHostException;
+import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 
-@Log4j2
 @Service
 @AllArgsConstructor
-public class ProductService implements Serializable {
-
+public class ProductService {
     private final ProductRepository productRepository;
     private final StorageService storageService;
-    private final IpAddressUtil ipAddressUtil;
 
     public Page<ProductModel> getAll(Pageable pageable) {
         return productRepository.findAll(pageable);
     }
 
     public ProductModel getById(String id) {
-        if (id != null) {
-            return productRepository.findById(id).orElseThrow(
-                    () -> new DataBaseException("Não foi possível encontrar o produto para o id" + id)
-            );
-        }
-        log.info("O ID está nulo");
-        throw new DataBaseException("Por favor o ID não pode ser nulo", new RuntimeException());
+        return productRepository.findById(id).orElseThrow(() -> new DataBaseException("Produto não encontrado para o id " + id));
     }
 
     public ProductModel post(ProductModel productModel) {
-        if (productModel == null) {
-            throw new WrongObjectException("O produto não pode estar nulo");
-        }
         return productRepository.save(productModel);
     }
 
-    public ProductModel post(String id, MultipartFile file) throws UnknownHostException, SocketException {
-        ProductModel productModel = getById(id);
+    public ProductModel put(String productId, ProductModel productModel, MultipartFile file) {
+        Optional<ProductModel> existingProductOptional = productRepository.findById(productId);
 
-        if (file != null && !file.isEmpty()) {
-            String imageLink = ipAddressUtil.getServerUrl("data/type/") +
-                    storageService.uploadFile(file);
-            productModel.setProductImage(imageLink);
-            return productRepository.save(productModel);
-        }
-        return null;
-    }
-
-    public ProductModel put(String userId, ProductModel productModel, MultipartFile file) {
-        Optional<ProductModel> existingUserOptional = productRepository.findById(userId);
-
-        if (existingUserOptional.isPresent()) {
-            ProductModel existingUser = existingUserOptional.get();
-            existingUser.setPrice(productModel.getPrice());
-            existingUser.setQuantity(productModel.getQuantity());
-            existingUser.setDescription(productModel.getDescription());
+        if (existingProductOptional.isPresent()) {
+            ProductModel existingProduct = existingProductOptional.get();
+            existingProduct.setPrice(productModel.getPrice());
+            existingProduct.setQuantity(productModel.getQuantity());
+            existingProduct.setDescription(productModel.getDescription());
 
             if (file != null && !file.isEmpty()) {
                 String imageLink = storageService.uploadFile(file);
-                existingUser.setProductImage(imageLink);
+                existingProduct.setProductImage(imageLink);
             }
-            return productRepository.save(existingUser);
+            return productRepository.save(existingProduct);
         }
+
         return null;
     }
 
-    public boolean delete(String userId) {
-        Optional<ProductModel> productModel = productRepository.findById(userId);
+    public boolean delete(String productId) {
+        Optional<ProductModel> productOptional = productRepository.findById(productId);
 
-        if (productModel.isPresent()) {
-            ProductModel user = productModel.get();
-            String profileImageLink = user.getProductImage();
-            if (profileImageLink != null && !profileImageLink.isEmpty()) {
-                storageService.deleteFile(profileImageLink);
+        if (productOptional.isPresent()) {
+            ProductModel product = productOptional.get();
+            String productImageLink = product.getProductImage();
+            if (productImageLink != null && !productImageLink.isEmpty()) {
+                storageService.deleteFile(productImageLink);
             }
-            productRepository.delete(user);
+
+            productRepository.delete(product);
             return true;
         }
         return false;
+    }
+
+    public ProductModel post(String userJson, MultipartFile file) throws IOException {
+        String fileName = storageService.uploadFile(file);
+        ProductModel productModel = new Gson().fromJson(userJson, ProductModel.class);
+        productModel.setProductImage(storageService.getFileDownloadUrl(fileName));
+        return productRepository.save(productModel);
     }
 }

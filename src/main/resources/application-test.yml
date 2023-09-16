@@ -4,7 +4,6 @@ spring:
       uri: mongodb://delivery:delivery@localhost:27017/delivery?authSource=admin
       database: delivery
       auto-index-creation: true
-
 api:
   security:
     token:
@@ -20,13 +19,14 @@ logging:
 cloud:
   aws:
     credentials:
-      access-key: ${ACCESS_KEY:AKIAR63SZWDKFTC2ZVTQ}
-      secret-key: ${SECRET_KEY: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}
+      access-key: ${ACCESS_KEY:AKIAR63SZWDKF7FYP7VK}
+      secret-key: ${SECRET_KEY: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}
     region:
-      static: us-east-2
+      static: sa-east-1
     stack:
       auto: false
 
 application:
   bucket:
-    name: productss3delivery
+    name: products343
+

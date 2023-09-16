@@ -1,66 +1,71 @@
 package com.delivery.trizi.trizi.infra.storage;
 
+
+import com.amazonaws.AmazonServiceException;
+import com.amazonaws.auth.AWSCredentialsProvider;
+import com.amazonaws.regions.Region;
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import com.amazonaws.services.s3.model.DeleteObjectRequest;
+import com.amazonaws.services.s3.model.GeneratePresignedUrlRequest;
+import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.amazonaws.services.s3.model.S3ObjectInputStream;
+import com.amazonaws.util.IOUtils;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.UUID;
+import java.util.Date;
+
+import static com.delivery.trizi.trizi.utils.ConvertToFile.convertMultiPartFileToFile;
 
 @Log4j2
 @Service
 @AllArgsConstructor
+@NoArgsConstructor
 public class StorageService {
 
-    private final StorageRepository storageRepository;
-    private final String uploadDirectory = "assets";
-
+    @Value("${application.bucket.name}")
+    private String bucketName;
+    @Autowired
+    private AmazonS3 s3Client;
 
     public String uploadFile(MultipartFile file) {
-        try {
-            if (file.isEmpty()) {
-                throw new RuntimeException("O arquivo está vazio.");
-            }
-            String uniqueFileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
-            Path uploadPath = Paths.get(uploadDirectory);
-            if (!uploadPath.toFile().exists()) {
-                uploadPath.toFile().mkdirs();
-            }
-
-            File localFile = new File(uploadPath.toFile(), uniqueFileName);
-            FileOutputStream fos = new FileOutputStream(localFile);
-            fos.write(file.getBytes());
-            fos.close();
-
-            storageRepository.save(new StorageModel(uniqueFileName));
-
-            return uniqueFileName;
-        } catch (IOException e) {
-            throw new RuntimeException("Erro ao fazer upload do arquivo: " + e.getMessage());
-        }
+        File fileObj = convertMultiPartFileToFile(file);
+        String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
+        s3Client.putObject(new PutObjectRequest(bucketName, fileName, fileObj));
+        fileObj.delete();
+        return fileName;
+    }
+    public String getFileDownloadUrl(String fileName) {
+        Date expiration = new Date(System.currentTimeMillis() + 3600 * 1000);
+        GeneratePresignedUrlRequest generatePresignedUrlRequest = new GeneratePresignedUrlRequest(bucketName, fileName)
+                .withMethod(com.amazonaws.HttpMethod.GET)
+                .withExpiration(expiration);
+        return s3Client.generatePresignedUrl(generatePresignedUrlRequest).toExternalForm();
     }
 
-    public byte[] getFile(String fileName) {
+    public byte[] downloadFile(String fileName) {
+        var s3Object = s3Client.getObject(bucketName, fileName);
+        S3ObjectInputStream inputStream = s3Object.getObjectContent();
         try {
-            Path filePath = Paths.get(uploadDirectory, fileName);
-            return Files.readAllBytes(filePath);
+            return IOUtils.toByteArray(inputStream);
         } catch (IOException e) {
-            throw new RuntimeException("Erro ao ler arquivo: " + e.getMessage());
+            e.printStackTrace();
         }
+        return null;
     }
 
-    public void deleteFile(String fileName) {
-        try {
-            Path filePath = Paths.get(uploadDirectory, fileName);
-            Files.deleteIfExists(filePath);
-        } catch (IOException e) {
-            throw new RuntimeException("Erro ao excluir arquivo: " + e.getMessage());
-        }
+    public String deleteFile(String fileName) {
+        s3Client.deleteObject(bucketName, fileName);
+        return fileName + " removed ...";
     }
+
 }

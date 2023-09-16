@@ -1,5 +1,6 @@
 package com.delivery.trizi.trizi.controllers;
 
+import com.delivery.trizi.trizi.domain.user.UserDto;
 import com.delivery.trizi.trizi.domain.user.UserModel;
 import com.delivery.trizi.trizi.services.UserService;
 import com.google.gson.Gson;
@@ -20,6 +21,7 @@ import java.util.List;
 @RestController
 @RequestMapping("users")
 @AllArgsConstructor
+@CrossOrigin(value = "*")
 public class UserController {
 
     private final UserService userService;
@@ -31,7 +33,7 @@ public class UserController {
     }
 
     @GetMapping("/id/{id}")
-    public ResponseEntity<UserModel> getByUserID(@PathVariable String id) throws UnknownHostException {
+    public ResponseEntity<UserModel> getByUserID(@PathVariable String id) {
         UserModel user = userService.getById(id);
         if (user != null) {
             String profileImageUrl = user.getProfileImage();
@@ -45,29 +47,28 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<UserModel> post(@RequestParam("user") String userJson,
-                                          @RequestParam("file") MultipartFile file) throws UnknownHostException, SocketException {
-        var userDto = new Gson().fromJson(userJson, UserModel.class);
-        String encryptedPassword = new BCryptPasswordEncoder().encode(userDto.getPassword());
-        var user = new UserModel(
-                userDto.getLogin(),
-                encryptedPassword,
-                userDto.getMail(),
-                userDto.getRole(),
-                ""
-        );
+                                          @RequestParam("file") MultipartFile file) throws Exception {
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(userService.post(userJson, file));
+    }
+    @PostMapping(value = "/nodata")
+    public ResponseEntity<UserModel> post(@RequestBody UserDto userDto
+                                          ) {
+        UserModel user = new UserModel();
+        String encryptedPassword = new BCryptPasswordEncoder().encode(userDto.password());
+        user.setPassword(encryptedPassword);
+        BeanUtils.copyProperties(userDto, user);
         UserModel savedUser = userService.post(user);
-        UserModel imageLink = userService.post(savedUser.getId(), file);
-        savedUser.setProfileImage(imageLink.getProfileImage());
         return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<UserModel> updateUser(@PathVariable String id,
                                                 @RequestParam("user") String userJson,
-                                                @RequestParam("file") MultipartFile file) throws UnknownHostException, SocketException {
+                                                @RequestParam("file") MultipartFile file) throws Exception {
         UserModel userModel = new UserModel();
         BeanUtils.copyProperties(userJson, userModel);
-        UserModel updatedUser = userService.put(id, userModel);
+        UserModel updatedUser = userService.put(id, userModel, file);
         UserModel imageLink = userService.post(id, file);
         updatedUser.setProfileImage(imageLink.getProfileImage());
 
@@ -81,8 +82,8 @@ public class UserController {
     }
 
     @GetMapping("/login/{login}")
-    public ResponseEntity<UserModel> getByLogin(@PathVariable String login) throws UnknownHostException {
-        UserModel user = userService.getByLogin(login);
+    public ResponseEntity<UserModel> getByLogin(@PathVariable String login) {
+        UserModel user = (UserModel) userService.loadUserByUsername(login);
         if (user != null) {
             String profileImageUrl = user.getProfileImage();
             user.setProfileImage(profileImageUrl);

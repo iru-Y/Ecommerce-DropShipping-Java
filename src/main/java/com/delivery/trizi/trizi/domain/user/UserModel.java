@@ -29,6 +29,12 @@ public class UserModel implements Serializable, UserDetails {
     @Id
     private String id;
     @Indexed(unique = true)
+    private String name;
+    private String lastName;
+    private String cpf;
+    private String city;
+    private String state;
+    private String address;
     private String login;
     private String password;
     @Indexed(unique = true)
@@ -36,12 +42,31 @@ public class UserModel implements Serializable, UserDetails {
     private RoleEnum role;
     private String profileImage;
 
-    public UserModel(String login, String password, String mail, RoleEnum role, String profileImage) {
+    public UserModel(String name, String lastName, String cpf, String city, String state, String address, String login, String password, String mail, RoleEnum role, String profileImage) {
+        this.name = name;
+        this.lastName = lastName;
+        this.cpf = cpf;
+        this.city = city;
+        this.state = state;
+        this.address = address;
         this.login = login;
         this.password = password;
         this.mail = mail;
         this.role = role;
         this.profileImage = profileImage;
+    }
+
+    public UserModel(String name, String lastName, String cpf, String city, String state, String address, String login, String password, String mail, RoleEnum role) {
+        this.name = name;
+        this.lastName = lastName;
+        this.cpf = cpf;
+        this.city = city;
+        this.state = state;
+        this.address = address;
+        this.login = login;
+        this.password = password;
+        this.mail = mail;
+        this.role = role;
     }
 
     @Override

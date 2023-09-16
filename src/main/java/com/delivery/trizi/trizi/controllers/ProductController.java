@@ -1,6 +1,7 @@
 package com.delivery.trizi.trizi.controllers;
 
 import com.delivery.trizi.trizi.domain.product.ProductModel;
+import com.delivery.trizi.trizi.domain.user.UserModel;
 import com.delivery.trizi.trizi.services.ProductService;
 import com.google.gson.Gson;
 import lombok.AllArgsConstructor;
@@ -13,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 
@@ -20,22 +22,24 @@ import java.net.UnknownHostException;
 @Log4j2
 @RestController
 @RequestMapping(value = "/products")
+@CrossOrigin(value = "*")
 public class ProductController {
     final private ProductService productService;
 
     @GetMapping
     public ResponseEntity<Page<ProductModel>> getAllProducts(Pageable pageable) {
+        log.info("Entrou no gelAllProducts");
         Page<ProductModel> products = productService.getAll(pageable);
         return ResponseEntity.ok().body(products);
     }
 
-    @GetMapping("/{userId}")
-    public ResponseEntity<ProductModel> getByUserID(@PathVariable String userId) throws UnknownHostException {
-        ProductModel productModel = productService.getById(userId);
+    @GetMapping("/{id}")
+    public ResponseEntity<ProductModel> getByUserID(@PathVariable String id) throws UnknownHostException {
+        ProductModel productModel = productService.getById(id);
         if (productModel != null) {
             String profileImageUrl = productModel.getProductImage();
             productModel.setProductImage(profileImageUrl);
-
+            log.info("Entrando no getProducts by id");
             return ResponseEntity.ok().body(productModel);
         } else {
             return ResponseEntity.notFound().build();
@@ -43,33 +47,27 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<ProductModel> post(@RequestParam("user") String userJson,
-                                          @RequestParam("file") MultipartFile file) throws UnknownHostException, SocketException {
-        var userDto = new Gson().fromJson(userJson, ProductModel.class);
-
-        ProductModel savedUser = productService.post(userDto);
-        ProductModel imageLink = productService.post(savedUser.getId(), file);
-        savedUser.setProductImage(imageLink.getProductImage());
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
+    public ResponseEntity<ProductModel> post(@RequestParam("product") String userJson,
+                                                @RequestParam("file") MultipartFile file) throws Exception {
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(productService.post(userJson, file));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<ProductModel> updateUser(@PathVariable String id,
-                                                @RequestParam("user") String userJson,
-                                                @RequestParam("file") MultipartFile file) throws UnknownHostException, SocketException {
+                                                @RequestParam("product") String userJson,
+                                                @RequestParam("file") MultipartFile file) throws IOException {
         ProductModel productModel = new ProductModel();
         BeanUtils.copyProperties(userJson, productModel);
         ProductModel updatedUser = productService.put(id, productModel, file);
         ProductModel imageLink = productService.post(id, file);
         updatedUser.setProductImage(imageLink.getProductImage());
-
         return ResponseEntity.ok().body(updatedUser);
     }
 
-    @DeleteMapping("/{userId}")
-    public ResponseEntity<String> deleteUser(@PathVariable String userId) {
-        productService.delete(userId);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteUser(@PathVariable String id) {
+        productService.delete(id);
         return ResponseEntity.ok().body("Usuário excluído com sucesso.");
     }
-
 }
