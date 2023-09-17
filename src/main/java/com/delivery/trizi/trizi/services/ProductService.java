@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -62,7 +61,6 @@ public class ProductService {
             if (productImageLink != null && !productImageLink.isEmpty()) {
                 storageService.deleteFile(productImageLink);
             }
-
             productRepository.delete(product);
             return true;
         }

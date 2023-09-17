@@ -3,7 +3,6 @@ package com.delivery.trizi.trizi.controllers;
 import com.delivery.trizi.trizi.domain.user.UserDto;
 import com.delivery.trizi.trizi.domain.user.UserModel;
 import com.delivery.trizi.trizi.services.UserService;
-import com.google.gson.Gson;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.BeanUtils;
@@ -13,15 +12,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.net.SocketException;
-import java.net.UnknownHostException;
 import java.util.List;
 
 @Log4j2
 @RestController
 @RequestMapping("users")
 @AllArgsConstructor
-@CrossOrigin(value = "*")
 public class UserController {
 
     private final UserService userService;
@@ -48,16 +44,18 @@ public class UserController {
     @PostMapping
     public ResponseEntity<UserModel> post(@RequestParam("user") String userJson,
                                           @RequestParam("file") MultipartFile file) throws Exception {
+        log.info("entrou no post");
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(userService.post(userJson, file));
     }
     @PostMapping(value = "/nodata")
     public ResponseEntity<UserModel> post(@RequestBody UserDto userDto
                                           ) {
+
         UserModel user = new UserModel();
         String encryptedPassword = new BCryptPasswordEncoder().encode(userDto.password());
-        user.setPassword(encryptedPassword);
         BeanUtils.copyProperties(userDto, user);
+        user.setPassword(encryptedPassword);
         UserModel savedUser = userService.post(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
     }

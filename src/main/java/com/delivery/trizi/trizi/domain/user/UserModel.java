@@ -28,13 +28,13 @@ public class UserModel implements Serializable, UserDetails {
 
     @Id
     private String id;
-    @Indexed(unique = true)
     private String name;
     private String lastName;
     private String cpf;
     private String city;
     private String state;
     private String address;
+    @Indexed(unique = true)
     private String login;
     private String password;
     @Indexed(unique = true)

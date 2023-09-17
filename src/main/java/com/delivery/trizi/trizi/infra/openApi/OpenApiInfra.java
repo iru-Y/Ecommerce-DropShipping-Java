@@ -7,9 +7,11 @@ import lombok.extern.log4j.Log4j2;
 import org.springdoc.core.GroupedOpenApi;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 @Log4j2
 @Configuration
+
 @OpenAPIDefinition(info = @Info(
         title = "Ecommerce",
         description = "Api completa para Ecommerce",

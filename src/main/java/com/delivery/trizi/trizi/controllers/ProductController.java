@@ -22,7 +22,6 @@ import java.net.UnknownHostException;
 @Log4j2
 @RestController
 @RequestMapping(value = "/products")
-@CrossOrigin(value = "*")
 public class ProductController {
     final private ProductService productService;
 
