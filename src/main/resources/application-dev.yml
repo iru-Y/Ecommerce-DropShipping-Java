@@ -1,0 +1,32 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb://delivery:delivery@localhost:27017/delivery?authSource=admin
+      database: delivery
+      auto-index-creation: true
+api:
+  security:
+    token:
+      secret: ${JWT_SECRET:my-secret-key}
+
+logging:
+  level:
+    com:
+      delivery:
+        trizi:
+          trizi: DEBUG
+
+cloud:
+  aws:
+    credentials:
+      access-key: ${ACCESS_KEY:AKIAR63SZWDKF7FYP7VK}
+      secret-key: ${SECRET_KEY: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}
+    region:
+      static: sa-east-1
+    stack:
+      auto: false
+
+application:
+  bucket:
+    name: products343
+
