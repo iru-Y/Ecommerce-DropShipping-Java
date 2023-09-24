@@ -1,6 +1,7 @@
 package com.delivery.trizi.trizi.domain.user;
 
 import com.delivery.trizi.trizi.infra.security.jwtUtils.RoleEnum;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -36,6 +37,7 @@ public class UserModel implements Serializable, UserDetails {
     private String address;
     @Indexed(unique = true)
     private String login;
+    @JsonIgnore
     private String password;
     @Indexed(unique = true)
     private String mail;

@@ -1,9 +1,8 @@
 package com.delivery.trizi.trizi.controllers;
 
+import com.delivery.trizi.trizi.domain.product.ProductDTO;
 import com.delivery.trizi.trizi.domain.product.ProductModel;
-import com.delivery.trizi.trizi.domain.user.UserModel;
 import com.delivery.trizi.trizi.services.ProductService;
-import com.google.gson.Gson;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.BeanUtils;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.net.SocketException;
 import java.net.UnknownHostException;
 
 @AllArgsConstructor
@@ -28,7 +26,7 @@ public class ProductController {
     @GetMapping
     public ResponseEntity<Page<ProductModel>> getAllProducts(Pageable pageable) {
         log.info("Entrou no gelAllProducts");
-        Page<ProductModel> products = productService.getAll(pageable);
+        Page<ProductModel> products = productService.getAllPageable(pageable);
         return ResponseEntity.ok().body(products);
     }
 
@@ -68,5 +66,14 @@ public class ProductController {
     public ResponseEntity<String> deleteUser(@PathVariable String id) {
         productService.delete(id);
         return ResponseEntity.ok().body("Usuário excluído com sucesso.");
+    }
+
+    @PutMapping(value = "/quantity")
+    public ResponseEntity<ProductModel> incrementOrDecrementQuantity(@RequestBody ProductDTO productDTO) {
+        ProductModel updatedProduct = productService.incrementOrDecrementQuantity(productDTO.description(), productDTO.quantity());
+        if (updatedProduct == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(updatedProduct);
     }
 }

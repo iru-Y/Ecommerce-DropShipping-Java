@@ -7,6 +7,7 @@ import com.delivery.trizi.trizi.infra.security.jwtUtils.TokenService;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -20,13 +21,11 @@ public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final TokenService tokenService;
 
-    @PostMapping("/login")
+    @PostMapping(value = "/login")
     public ResponseEntity login(@RequestBody RoleLoginDto data){
         var usernamePassword = new UsernamePasswordAuthenticationToken(data.login(), data.password());
         var auth = this.authenticationManager.authenticate(usernamePassword);
-
         var token = tokenService.generateToken((UserModel) auth.getPrincipal());
-
         return ResponseEntity.ok(new GeneratedToken(token));
     }
 }

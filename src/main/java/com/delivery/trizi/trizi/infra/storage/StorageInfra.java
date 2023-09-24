@@ -30,6 +30,7 @@ public class StorageInfra {
         AWSCredentials credentials = new BasicAWSCredentials(accessKey, accessSecret);
         return AmazonS3ClientBuilder.standard()
                 .withCredentials(new AWSStaticCredentialsProvider(credentials))
+
                 .withRegion(region).build();
     }
 }

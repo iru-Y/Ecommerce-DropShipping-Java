@@ -62,14 +62,18 @@ public class UserController {
 
     @PutMapping("/{id}")
     public ResponseEntity<UserModel> updateUser(@PathVariable String id,
-                                                @RequestParam("user") String userJson,
-                                                @RequestParam("file") MultipartFile file) throws Exception {
+                                                @RequestParam("user") UserDto userDto,
+                                                @RequestParam("file") MultipartFile file) {
         UserModel userModel = new UserModel();
-        BeanUtils.copyProperties(userJson, userModel);
+        BeanUtils.copyProperties(userDto, userModel);
         UserModel updatedUser = userService.put(id, userModel, file);
-        UserModel imageLink = userService.post(id, file);
-        updatedUser.setProfileImage(imageLink.getProfileImage());
+        return ResponseEntity.ok().body(updatedUser);
+    }
 
+    @PutMapping(value = "/image/{login}")
+    public ResponseEntity<UserModel> updateProfImg (@RequestParam (value = "file") MultipartFile file,
+                                                    @PathVariable String login) {
+        UserModel updatedUser = userService.put(login, file);
         return ResponseEntity.ok().body(updatedUser);
     }
 

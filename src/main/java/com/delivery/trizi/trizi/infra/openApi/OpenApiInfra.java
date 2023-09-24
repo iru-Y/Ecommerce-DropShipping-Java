@@ -7,11 +7,9 @@ import lombok.extern.log4j.Log4j2;
 import org.springdoc.core.GroupedOpenApi;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.bind.annotation.CrossOrigin;
 
 @Log4j2
 @Configuration
-
 @OpenAPIDefinition(info = @Info(
         title = "Ecommerce",
         description = "Api completa para Ecommerce",
@@ -22,7 +20,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
                 url = "https://github.com/iru-Y/Ecommerce-DropShipping-Java")
 ))
 public class OpenApiInfra {
-
     @Bean
     public GroupedOpenApi logApi() {
         log.info("Gerando swagger da aplicação");
@@ -33,5 +30,4 @@ public class OpenApiInfra {
                 .pathsToMatch("/v1/**")
                 .build();
     }
-
 }

@@ -20,8 +20,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.Date;
 
 import static com.delivery.trizi.trizi.utils.ConvertToFile.convertMultiPartFileToFile;
@@ -45,10 +45,12 @@ public class StorageService {
         return fileName;
     }
     public String getFileDownloadUrl(String fileName) {
-        Date expiration = new Date(System.currentTimeMillis() + 3600 * 1000);
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_YEAR, 7);
+        Date date = calendar.getTime();
         GeneratePresignedUrlRequest generatePresignedUrlRequest = new GeneratePresignedUrlRequest(bucketName, fileName)
                 .withMethod(com.amazonaws.HttpMethod.GET)
-                .withExpiration(expiration);
+                .withExpiration(date);
         return s3Client.generatePresignedUrl(generatePresignedUrlRequest).toExternalForm();
     }
 

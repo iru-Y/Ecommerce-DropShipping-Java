@@ -1,7 +1,6 @@
 package com.delivery.trizi.trizi.services;
 
 import com.delivery.trizi.trizi.domain.product.ProductModel;
-import com.delivery.trizi.trizi.domain.user.UserModel;
 import com.delivery.trizi.trizi.infra.storage.StorageService;
 import com.delivery.trizi.trizi.repositories.ProductRepository;
 import com.delivery.trizi.trizi.services.exception.DataBaseException;
@@ -12,17 +11,21 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 
 @Service
 @AllArgsConstructor
-public class ProductService {
+public class ProductService{
     private final ProductRepository productRepository;
     private final StorageService storageService;
 
-    public Page<ProductModel> getAll(Pageable pageable) {
+    public Page<ProductModel> getAllPageable(Pageable pageable) {
         return productRepository.findAll(pageable);
+    }
+
+    public List<ProductModel> getAll() {
+        return productRepository.findAll();
     }
 
     public ProductModel getById(String id) {
@@ -67,10 +70,31 @@ public class ProductService {
         return false;
     }
 
-    public ProductModel post(String userJson, MultipartFile file) throws IOException {
+    public List<ProductModel> getByDescription(String description) {
+       return productRepository.findByDescription(description);
+    }
+
+    public ProductModel post(String userJson, MultipartFile file) {
         String fileName = storageService.uploadFile(file);
         ProductModel productModel = new Gson().fromJson(userJson, ProductModel.class);
         productModel.setProductImage(storageService.getFileDownloadUrl(fileName));
         return productRepository.save(productModel);
     }
+
+    public ProductModel incrementOrDecrementQuantity(String description, Long quantityChange) {
+        List<ProductModel> existingProducts = productRepository.findByDescription(description);
+        if (existingProducts.isEmpty()) {
+            return null;
+        }
+        ProductModel productModel = existingProducts.get(0);
+        Long currentQuantity = productModel.getQuantity();
+        Long newQuantity = currentQuantity + quantityChange;
+        if (newQuantity < 0) {
+            return null;
+        }
+        productModel.setQuantity(newQuantity);
+        return productRepository.save(productModel);
+    }
+
+
 }
