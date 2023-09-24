@@ -19,10 +19,10 @@ logging:
 cloud:
   aws:
     credentials:
-      access-key: ${ACCESS_KEY:AKIAR63SZWDKF7FYP7VK}
-      secret-key: ${SECRET_KEY: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}
+      access-key: ${ACCESS_KEY:AKIAR63SZWDKN2SM23C4}
+      secret-key: ${SECRET_KEY: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}
     region:
-      static: sa-east-1
+      static: us-east-2
     stack:
       auto: false
 
