@@ -156,37 +156,11 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<finalName>trizi.jar</finalName>
+				</configuration>
 			</plugin>
 
-<!--			<plugin>-->
-<!--				<groupId>org.openapitools</groupId>-->
-<!--				<artifactId>openapi-generator-maven-plugin</artifactId>-->
-<!--				<version>6.6.0</version>-->
-<!--				<executions>-->
-<!--					<execution>-->
-<!--						<goals>-->
-<!--							<goal>generate</goal>-->
-<!--						</goals>-->
-<!--						<configuration>-->
-<!--							<inputSpec>-->
-<!--								${project.basedir}/src/main/resources/swagger.yaml-->
-<!--							</inputSpec>-->
-<!--							<generatorName>spring</generatorName>-->
-<!--							<apiPackage>com.delivery.trizi.trizi.springswaggercodegen3.api</apiPackage>-->
-<!--							<modelPackage>om.delivery.trizi.trizi.springswaggercodegen3.model</modelPackage>-->
-<!--							<supportingFilesToGenerate>-->
-<!--								ApiUtil.java-->
-<!--							</supportingFilesToGenerate>-->
-<!--							<configOptions>-->
-<!--								<sourceFolder>src/main/java/</sourceFolder>-->
-<!--								<delegatePattern>true</delegatePattern>-->
-<!--								<interfaceOnly>true</interfaceOnly>-->
-<!--								<useJakartaEe>true</useJakartaEe>-->
-<!--							</configOptions>-->
-<!--						</configuration>-->
-<!--					</execution>-->
-<!--				</executions>-->
-<!--			</plugin>-->
 		</plugins>
 	</build>
 </project>

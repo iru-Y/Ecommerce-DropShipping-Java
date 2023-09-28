@@ -24,7 +24,7 @@ public class ProductController {
     final private ProductService productService;
 
     @GetMapping
-    public ResponseEntity<Page<ProductModel>> getAllProducts(Pageable pageable) {
+    public ResponseEntity<Page<ProductModel>> getAllProducts(Pageable pageable, @RequestParam(defaultValue = "false") boolean sorted) {
         log.info("Entrou no gelAllProducts");
         Page<ProductModel> products = productService.getAllPageable(pageable);
         return ResponseEntity.ok().body(products);
