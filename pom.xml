@@ -157,7 +157,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<finalName>trizi.jar</finalName>
+					<finalName>trizi</finalName>
 				</configuration>
 			</plugin>
 
