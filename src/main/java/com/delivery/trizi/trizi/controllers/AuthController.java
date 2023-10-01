@@ -21,9 +21,9 @@ public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final TokenService tokenService;
 
-    @PostMapping(value = "/login")
+    @PostMapping(value = "/mail")
     public ResponseEntity login(@RequestBody RoleLoginDto data){
-        var usernamePassword = new UsernamePasswordAuthenticationToken(data.login(), data.password());
+        var usernamePassword = new UsernamePasswordAuthenticationToken(data.mail(), data.password());
         var auth = this.authenticationManager.authenticate(usernamePassword);
         var token = tokenService.generateToken((UserModel) auth.getPrincipal());
         return ResponseEntity.ok(new GeneratedToken(token));
