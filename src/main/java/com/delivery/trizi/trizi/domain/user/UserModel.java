@@ -1,5 +1,6 @@
 package com.delivery.trizi.trizi.domain.user;
 
+import com.delivery.trizi.trizi.domain.product.ProductModel;
 import com.delivery.trizi.trizi.infra.security.jwtUtils.RoleEnum;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
@@ -14,9 +15,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -43,6 +44,7 @@ public class UserModel implements Serializable, UserDetails {
     private String mail;
     private RoleEnum role;
     private String profileImage;
+    private List<ProductModel> favorites = new ArrayList<>();
 
     public UserModel(String name, String lastName, String cpf, String city, String state, String address, String login, String password, String mail, RoleEnum role, String profileImage) {
         this.name = name;
@@ -103,4 +105,5 @@ public class UserModel implements Serializable, UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
 }

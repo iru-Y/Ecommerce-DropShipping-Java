@@ -1,12 +1,7 @@
 package com.delivery.trizi.trizi.infra.storage;
 
 
-import com.amazonaws.AmazonServiceException;
-import com.amazonaws.auth.AWSCredentialsProvider;
-import com.amazonaws.regions.Region;
 import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.AmazonS3ClientBuilder;
-import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.amazonaws.services.s3.model.GeneratePresignedUrlRequest;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.S3ObjectInputStream;
@@ -69,5 +64,4 @@ public class StorageService {
         s3Client.deleteObject(bucketName, fileName);
         return fileName + " removed ...";
     }
-
 }

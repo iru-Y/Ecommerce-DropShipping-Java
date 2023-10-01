@@ -95,4 +95,9 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
     }
+    @PatchMapping("/favorites")
+    public UserModel favorites (@RequestParam String login, @RequestParam String description) {
+        var user = userService.findByLogin(login);
+        return userService.favorites(user, description);
+    }
 }

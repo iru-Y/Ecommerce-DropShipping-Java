@@ -30,9 +30,9 @@ public class OrderService  {
 
     public Order post(Order order, String login, String description) {
         var user = userService.findByLogin(login);
-        List<ProductModel> descriptions = (productService.getByDescription(description));
+        Optional<ProductModel> descriptions = (productService.getByDescription(description));
         order.setUserModel(user);
-        order.setProductModelList(descriptions);
+        order.setProductModelList((List<ProductModel>) descriptions.orElseThrow());
         return orderRepository.save(order);
     }
 

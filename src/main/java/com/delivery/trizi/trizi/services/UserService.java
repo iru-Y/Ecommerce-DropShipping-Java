@@ -1,5 +1,6 @@
 package com.delivery.trizi.trizi.services;
 
+import com.delivery.trizi.trizi.domain.product.ProductModel;
 import com.delivery.trizi.trizi.domain.user.UserModel;
 import com.delivery.trizi.trizi.infra.storage.StorageService;
 import com.delivery.trizi.trizi.repositories.UserRepository;
@@ -22,6 +23,7 @@ import java.util.Optional;
 public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
     private final StorageService storageService;
+    private final ProductService productService;
 
     public List<UserModel> getAll() {
         return userRepository.findAll();
@@ -90,4 +92,21 @@ public class UserService implements UserDetailsService {
         log.debug("Carregou pelo UserDetails");
         return userRepository.findByLogin(username);
     }
-}
+
+    public UserModel favorites(UserModel userModel, String productDescription) {
+        var user = userRepository.findByLogin(userModel.getLogin());
+        Optional<ProductModel> productOptional = productService.getByDescription(productDescription);
+        if (productOptional.isPresent()) {
+            ProductModel product = productOptional.get();
+            List<ProductModel> favorites = user.getFavorites();
+            if (!favorites.contains(product)) {
+                favorites.add(product);
+            } else {
+                favorites.remove(product);
+            }
+            return userRepository.save(user);
+            } else {
+                return user;
+            }
+        }
+    }

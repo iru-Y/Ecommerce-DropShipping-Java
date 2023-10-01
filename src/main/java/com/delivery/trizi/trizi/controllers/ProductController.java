@@ -13,9 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.net.UnknownHostException;
-
 @AllArgsConstructor
 @Log4j2
 @RestController
@@ -31,7 +28,7 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ProductModel> getByUserID(@PathVariable String id) throws UnknownHostException {
+    public ResponseEntity<ProductModel> getByUserID(@PathVariable String id) {
         ProductModel productModel = productService.getById(id);
         if (productModel != null) {
             String profileImageUrl = productModel.getProductImage();
@@ -53,7 +50,7 @@ public class ProductController {
     @PutMapping("/{id}")
     public ResponseEntity<ProductModel> updateUser(@PathVariable String id,
                                                 @RequestParam("product") String userJson,
-                                                @RequestParam("file") MultipartFile file) throws IOException {
+                                                @RequestParam("file") MultipartFile file) {
         ProductModel productModel = new ProductModel();
         BeanUtils.copyProperties(userJson, productModel);
         ProductModel updatedUser = productService.put(id, productModel, file);
@@ -66,14 +63,5 @@ public class ProductController {
     public ResponseEntity<String> deleteUser(@PathVariable String id) {
         productService.delete(id);
         return ResponseEntity.ok().body("Usuário excluído com sucesso.");
-    }
-
-    @PutMapping(value = "/quantity")
-    public ResponseEntity<ProductModel> incrementOrDecrementQuantity(@RequestBody ProductDTO productDTO) {
-        ProductModel updatedProduct = productService.incrementOrDecrementQuantity(productDTO.description(), productDTO.quantity());
-        if (updatedProduct == null) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(updatedProduct);
     }
 }

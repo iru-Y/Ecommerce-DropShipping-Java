@@ -70,8 +70,8 @@ public class ProductService{
         return false;
     }
 
-    public List<ProductModel> getByDescription(String description) {
-       return productRepository.findByDescription(description);
+    public Optional<ProductModel> getByDescription(String description) {
+       return Optional.ofNullable(productRepository.findByDescription(description));
     }
 
     public ProductModel post(String userJson, MultipartFile file) {
@@ -80,21 +80,5 @@ public class ProductService{
         productModel.setProductImage(storageService.getFileDownloadUrl(fileName));
         return productRepository.save(productModel);
     }
-
-    public ProductModel incrementOrDecrementQuantity(String description, Long quantityChange) {
-        List<ProductModel> existingProducts = productRepository.findByDescription(description);
-        if (existingProducts.isEmpty()) {
-            return null;
-        }
-        ProductModel productModel = existingProducts.get(0);
-        Long currentQuantity = productModel.getQuantity();
-        Long newQuantity = currentQuantity + quantityChange;
-        if (newQuantity < 0) {
-            return null;
-        }
-        productModel.setQuantity(newQuantity);
-        return productRepository.save(productModel);
-    }
-
 
 }
