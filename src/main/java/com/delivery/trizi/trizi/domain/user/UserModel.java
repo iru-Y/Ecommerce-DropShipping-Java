@@ -45,7 +45,7 @@ public class UserModel implements Serializable, UserDetails {
     private String profileImage;
     private List<ProductModel> favorites = new ArrayList<>();
 
-    public UserModel(String name, String lastName, String cpf, String city, String state, String address, String password, String mail, RoleEnum role, String profileImage) {
+    public UserModel(String name, String lastName, String cpf, String city, String state, String address, String login, String password, String mail, RoleEnum role, String profileImage) {
         this.name = name;
         this.lastName = lastName;
         this.cpf = cpf;
@@ -58,7 +58,7 @@ public class UserModel implements Serializable, UserDetails {
         this.profileImage = profileImage;
     }
 
-    public UserModel(String name, String lastName, String cpf, String city, String state, String address, String password, String mail, RoleEnum role) {
+    public UserModel(String name, String lastName, String cpf, String city, String state, String address, String login, String password, String mail, RoleEnum role) {
         this.name = name;
         this.lastName = lastName;
         this.cpf = cpf;
