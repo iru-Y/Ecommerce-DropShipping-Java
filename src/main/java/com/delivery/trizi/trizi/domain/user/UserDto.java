@@ -4,12 +4,12 @@ import com.delivery.trizi.trizi.infra.security.jwtUtils.RoleEnum;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.web.multipart.MultipartFile;
 
-public record UserDto(String login,
+public record UserDto(String mail,
                       String name,
                       String lastName,
                       String city,
                       String cpf,
                       String address,
                       String state,
-                      String password, String mail, RoleEnum role, String profileImageFileName) {
+                      String password, RoleEnum role, String profileImageFileName) {
 }

@@ -29,8 +29,8 @@ public class SecurityFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         var token = recoverToken(request);
         if (token != null) {
-            var login = tokenService.validateToken(token);
-            var userDetails = userService.findByMail(login);
+            var mail = tokenService.validateToken(token);
+            var userDetails = userService.findByMail(mail);
 
             if (userDetails == null) {
                 logger.info("O userDetails está nulo");
