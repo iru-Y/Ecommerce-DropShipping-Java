@@ -77,13 +77,8 @@ public class UserController {
 
     @GetMapping("/mail/{mail}")
     public ResponseEntity<UserModel> getByMail(@PathVariable String mail) {
-        UserModel user = (UserModel) userService.findByMail(mail);
-
-            String profileImageUrl = user.getProfileImage();
-            user.setProfileImage(profileImageUrl);
-            log.info("Entrou no getByMail");
+        UserModel user = userService.findByMail(mail);
             return ResponseEntity.ok().body(user);
-
     }
     @PatchMapping("/favorites")
     public UserModel favorites (@RequestParam String mail, @RequestParam String description) {
