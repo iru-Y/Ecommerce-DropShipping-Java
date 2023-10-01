@@ -44,7 +44,6 @@ public class UserController {
     @PostMapping()
     public ResponseEntity<UserModel> post(@RequestBody UserDto userDto
                                           ) {
-
         UserModel user = new UserModel();
         String encryptedPassword = new BCryptPasswordEncoder().encode(userDto.password());
         BeanUtils.copyProperties(userDto, user);

@@ -28,8 +28,8 @@ public class OrderService  {
         return orderRepository.findById(id);
     }
 
-    public Order post(Order order, String login, String description) {
-        var user = userService.findByMail(login);
+    public Order post(Order order, String mail, String description) {
+        var user = userService.findByMail(mail);
         Optional<ProductModel> descriptions = (productService.getByDescription(description));
         order.setUserModel(user);
         order.setProductModelList((List<ProductModel>) descriptions.orElseThrow());
