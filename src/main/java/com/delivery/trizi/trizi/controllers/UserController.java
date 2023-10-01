@@ -53,7 +53,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
     }
 
-    @PutMapping("/{id}")
+    @PatchMapping("/{id}")
     public ResponseEntity<UserModel> updateUser(@PathVariable String id,
                                                 @RequestParam("user") UserDto userDto,
                                                 @RequestParam("file") MultipartFile file) {
@@ -63,7 +63,7 @@ public class UserController {
         return ResponseEntity.ok().body(updatedUser);
     }
 
-    @PutMapping(value = "/image/{login}")
+    @PatchMapping(value = "/image/{login}")
     public ResponseEntity<UserModel> updateProfImg (@RequestParam (value = "file") MultipartFile file,
                                                     @PathVariable String login) {
         UserModel updatedUser = userService.put(login, file);

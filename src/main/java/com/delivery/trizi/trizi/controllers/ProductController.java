@@ -47,7 +47,7 @@ public class ProductController {
                 .body(productService.post(userJson, file));
     }
 
-    @PutMapping("/{id}")
+    @PatchMapping("/{id}")
     public ResponseEntity<ProductModel> updateUser(@PathVariable String id,
                                                 @RequestParam("product") String userJson,
                                                 @RequestParam("file") MultipartFile file) {
