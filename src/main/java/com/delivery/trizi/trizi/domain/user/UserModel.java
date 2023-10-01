@@ -41,7 +41,7 @@ public class UserModel implements Serializable, UserDetails {
     private String password;
     @Indexed(unique = true)
     private String mail;
-    private RoleEnum role;
+    private RoleEnum role = RoleEnum.USER;
     private String profileImage;
     private List<ProductModel> favorites = new ArrayList<>();
 
