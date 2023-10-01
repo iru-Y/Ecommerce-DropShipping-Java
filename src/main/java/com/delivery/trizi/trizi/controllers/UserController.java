@@ -63,10 +63,10 @@ public class UserController {
         return ResponseEntity.ok().body(updatedUser);
     }
 
-    @PatchMapping(value = "/image/{login}")
+    @PatchMapping(value = "/image/{mail}")
     public ResponseEntity<UserModel> updateProfImg (@RequestParam (value = "file") MultipartFile file,
-                                                    @PathVariable String login) {
-        UserModel updatedUser = userService.put(login, file);
+                                                    @PathVariable String mail) {
+        UserModel updatedUser = userService.put(mail, file);
         return ResponseEntity.ok().body(updatedUser);
     }
 
@@ -76,7 +76,7 @@ public class UserController {
         return ResponseEntity.ok().body("Usuário excluído com sucesso.");
     }
 
-    @GetMapping("/mail/{login}")
+    @GetMapping("/mail/{mail}")
     public ResponseEntity<UserModel> getByMail(@PathVariable String mail) {
         UserModel user = (UserModel) userService.findByMail(mail);
         if (user != null) {
