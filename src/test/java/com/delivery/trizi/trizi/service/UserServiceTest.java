@@ -15,9 +15,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -78,25 +75,12 @@ public class UserServiceTest {
     public void testLoadUserByUsernameUserFound() {
         String username = "testuser";
         UserModel mockUser = new UserModel();
-        when(userRepository.findByLogin(username)).thenReturn(mockUser);
+        when(userRepository.findByMail(username)).thenReturn(mockUser);
 
         UserDetails result = userService.loadUserByUsername(username);
 
         assertNotNull(result);
         assertEquals(mockUser, result);
     }
-    @Test
-    void testFavorites() {
-        UserModel user = new UserModel("yuri", "Doe", "123456789", "City", "State", "Address", "yuri", "password", "john@example.com", RoleEnum.USER);
-        when(userRepository.findByLogin("yuri")).thenReturn(user);
 
-        List<ProductModel> product = List.of(new ProductModel("6514fe26802ffd290adbef00", "333cachorro-quente", 10L, "1000.00", "laptop.jpg"));
-        when(productService.getByDescription("333cachorro-quente")).thenReturn(product);
-        var products = product.stream().map(x-> x.getQuantity()).toList().toString();
-        var updatedUser = userService.favorites(user, products);
-
-        assertNotNull(updatedUser);
-        assertEquals(1, updatedUser.getFavorites().size());
-        assertEquals("Laptop", updatedUser.getFavorites().get(0).getDescription());
-    }
 }

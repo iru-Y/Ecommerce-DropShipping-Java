@@ -37,8 +37,8 @@ public class UserService implements UserDetailsService {
         return userRepository.save(userModel);
     }
 
-    public UserModel findByLogin(String login) {
-        return userRepository.findByLogin(login);
+    public UserModel findByMail(String mail) {
+        return userRepository.findByMail(mail);
     }
 
     public UserModel put(String userId, UserModel userModel, MultipartFile file) {
@@ -81,8 +81,8 @@ public class UserService implements UserDetailsService {
         return userRepository.save(userModel);
     }
 
-    public UserModel put(String login, MultipartFile file) {
-        UserModel existingUser = userRepository.findByLogin(login);
+    public UserModel put(String mail, MultipartFile file) {
+        UserModel existingUser = userRepository.findByMail(mail);
             String imageLink = storageService.uploadFile(file);
             existingUser.setProfileImage(storageService.getFileDownloadUrl(imageLink));
             return userRepository.save(existingUser);
@@ -90,11 +90,11 @@ public class UserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         log.debug("Carregou pelo UserDetails");
-        return userRepository.findByLogin(username);
+        return userRepository.findByMail(username);
     }
 
     public UserModel favorites(UserModel userModel, String productDescription) {
-        var user = userRepository.findByLogin(userModel.getLogin());
+        var user = userRepository.findByMail(userModel.getMail());
         Optional<ProductModel> productOptional = productService.getByDescription(productDescription);
         if (productOptional.isPresent()) {
             ProductModel product = productOptional.get();

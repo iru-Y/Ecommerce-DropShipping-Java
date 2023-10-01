@@ -41,14 +41,7 @@ public class UserController {
         }
     }
 
-    @PostMapping
-    public ResponseEntity<UserModel> post(@RequestParam("user") String userJson,
-                                          @RequestParam("file") MultipartFile file) throws Exception {
-        log.info("entrou no post");
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(userService.post(userJson, file));
-    }
-    @PostMapping(value = "/nodata")
+    @PostMapping()
     public ResponseEntity<UserModel> post(@RequestBody UserDto userDto
                                           ) {
 
@@ -97,7 +90,7 @@ public class UserController {
     }
     @PatchMapping("/favorites")
     public UserModel favorites (@RequestParam String login, @RequestParam String description) {
-        var user = userService.findByLogin(login);
+        var user = userService.findByMail(login);
         return userService.favorites(user, description);
     }
 }

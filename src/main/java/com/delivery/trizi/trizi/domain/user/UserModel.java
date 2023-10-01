@@ -37,7 +37,6 @@ public class UserModel implements Serializable, UserDetails {
     private String state;
     private String address;
     @Indexed(unique = true)
-    private String login;
     @JsonIgnore
     private String password;
     @Indexed(unique = true)
@@ -53,7 +52,6 @@ public class UserModel implements Serializable, UserDetails {
         this.city = city;
         this.state = state;
         this.address = address;
-        this.login = login;
         this.password = password;
         this.mail = mail;
         this.role = role;
@@ -67,7 +65,6 @@ public class UserModel implements Serializable, UserDetails {
         this.city = city;
         this.state = state;
         this.address = address;
-        this.login = login;
         this.password = password;
         this.mail = mail;
         this.role = role;
@@ -83,7 +80,7 @@ public class UserModel implements Serializable, UserDetails {
 
     @Override
     public String getUsername() {
-        return this.login;
+        return this.mail;
     }
 
     @Override

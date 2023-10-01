@@ -29,7 +29,7 @@ public class OrderService  {
     }
 
     public Order post(Order order, String login, String description) {
-        var user = userService.findByLogin(login);
+        var user = userService.findByMail(login);
         Optional<ProductModel> descriptions = (productService.getByDescription(description));
         order.setUserModel(user);
         order.setProductModelList((List<ProductModel>) descriptions.orElseThrow());

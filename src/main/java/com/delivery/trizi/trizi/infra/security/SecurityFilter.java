@@ -30,7 +30,7 @@ public class SecurityFilter extends OncePerRequestFilter {
         var token = recoverToken(request);
         if (token != null) {
             var login = tokenService.validateToken(token);
-            var userDetails = userService.findByLogin(login);
+            var userDetails = userService.findByMail(login);
 
             if (userDetails == null) {
                 logger.info("O userDetails está nulo");
