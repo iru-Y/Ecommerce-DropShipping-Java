@@ -76,21 +76,21 @@ public class UserController {
         return ResponseEntity.ok().body("Usuário excluído com sucesso.");
     }
 
-    @GetMapping("/login/{login}")
-    public ResponseEntity<UserModel> getByLogin(@PathVariable String login) {
-        UserModel user = (UserModel) userService.loadUserByUsername(login);
+    @GetMapping("/mail/{login}")
+    public ResponseEntity<UserModel> getByMail(@PathVariable String mail) {
+        UserModel user = (UserModel) userService.findByMail(mail);
         if (user != null) {
             String profileImageUrl = user.getProfileImage();
             user.setProfileImage(profileImageUrl);
-            log.info("Entrou no getByLogin");
+            log.info("Entrou no getByMail");
             return ResponseEntity.ok().body(user);
         } else {
             return ResponseEntity.notFound().build();
         }
     }
     @PatchMapping("/favorites")
-    public UserModel favorites (@RequestParam String login, @RequestParam String description) {
-        var user = userService.findByMail(login);
+    public UserModel favorites (@RequestParam String mail, @RequestParam String description) {
+        var user = userService.findByMail(mail);
         return userService.favorites(user, description);
     }
 }
