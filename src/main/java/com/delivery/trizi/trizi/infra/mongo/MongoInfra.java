@@ -1,6 +1,6 @@
 package com.delivery.trizi.trizi.infra.mongo;
 
-import com.delivery.trizi.trizi.utils.Listeners;
+import com.delivery.trizi.trizi.utils.OrderListeners;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.core.MongoOperations;
@@ -14,7 +14,7 @@ public class MongoInfra {
         return new ValidatingMongoEventListener(validator);
     }
 
-    public Listeners orderModelListener(MongoOperations mongoOperations) {
-        return new Listeners(mongoOperations);
+    public OrderListeners OrderTrackerListeners(MongoOperations mongoOperations) {
+        return new OrderListeners(mongoOperations);
     }
 }

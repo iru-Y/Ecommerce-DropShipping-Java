@@ -1,6 +1,7 @@
 package com.delivery.trizi.trizi.controllers;
 
 import com.delivery.trizi.trizi.domain.order.OrderModel;
+import com.delivery.trizi.trizi.domain.order.OrderStatusEnum;
 import com.delivery.trizi.trizi.services.OrderService;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -17,6 +18,7 @@ import java.util.Optional;
 @AllArgsConstructor
 @Log4j2
 public class OrderController {
+
     private final OrderService orderService;
 
     @GetMapping
@@ -38,6 +40,13 @@ public class OrderController {
                                       ) {
         var resp = orderService.post(order, mail, description);
         return ResponseEntity.status(HttpStatus.CREATED).body(resp);
+    }
+
+    @PatchMapping
+    public ResponseEntity<OrderModel> patch (@RequestParam(value = "tracker") String tracker,
+                                             @RequestParam(value = "description") String description,
+                                             @RequestParam(value = "status") OrderStatusEnum status) {
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(orderService.patch(tracker, description, status));
     }
 
     @DeleteMapping(value = {"id"})

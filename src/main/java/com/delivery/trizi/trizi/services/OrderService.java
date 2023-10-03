@@ -1,6 +1,7 @@
 package com.delivery.trizi.trizi.services;
 
 import com.delivery.trizi.trizi.domain.order.OrderModel;
+import com.delivery.trizi.trizi.domain.order.OrderStatusEnum;
 import com.delivery.trizi.trizi.repositories.OrderRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -38,9 +39,13 @@ public class OrderService  {
         return orderRepository.save(order);
     }
 
-//    public OrderModel put(String tracker, String mail, String description) {
-//
-//    }
+    public OrderModel patch(String tracker, String description, OrderStatusEnum status) {
+        var o = orderRepository.findByTracker(tracker);
+        var p = productService.getByDescription(description);
+        o.setProductModelList(List.of(p));
+        o.setStatus(status);
+        return orderRepository.save(o);
+    }
     public boolean delete(String id) {
         Optional<OrderModel> orderOptional = orderRepository.findById(id);
 
