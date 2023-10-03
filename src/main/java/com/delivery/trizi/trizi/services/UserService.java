@@ -95,14 +95,13 @@ public class UserService implements UserDetailsService {
 
     public UserModel favorites(UserModel userModel, String productDescription) {
         var user = userRepository.findByMail(userModel.getMail());
-        Optional<ProductModel> productOptional = productService.getByDescription(productDescription);
-        if (productOptional.isPresent()) {
-            ProductModel product = productOptional.get();
+        var productOptional = productService.getByDescription(productDescription);
+        if (productOptional !=null) {
             List<ProductModel> favorites = user.getFavorites();
-            if (!favorites.contains(product)) {
-                favorites.add(product);
+            if (!favorites.contains(productOptional)) {
+                favorites.add(productOptional);
             } else {
-                favorites.remove(product);
+                favorites.remove(productOptional);
             }
             return userRepository.save(user);
             } else {

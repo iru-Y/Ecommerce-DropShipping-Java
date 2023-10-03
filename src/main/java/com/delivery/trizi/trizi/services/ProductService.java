@@ -70,8 +70,8 @@ public class ProductService{
         return false;
     }
 
-    public Optional<ProductModel> getByDescription(String description) {
-       return Optional.ofNullable(productRepository.findByDescription(description));
+    public ProductModel getByDescription(String description) {
+       return productRepository.findByDescription(description);
     }
 
     public ProductModel post(String userJson, MultipartFile file) {
@@ -81,4 +81,9 @@ public class ProductService{
         return productRepository.save(productModel);
     }
 
+    public void updateProductQuantity(List<ProductModel> productModels, Long quantity) {
+        for (ProductModel productModel : productModels) {
+            productModel.setQuantity(productModel.getQuantity() - quantity);
+        }
+    }
 }

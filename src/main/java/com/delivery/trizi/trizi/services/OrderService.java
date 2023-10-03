@@ -1,7 +1,6 @@
 package com.delivery.trizi.trizi.services;
 
-import com.delivery.trizi.trizi.domain.order.Order;
-import com.delivery.trizi.trizi.domain.product.ProductModel;
+import com.delivery.trizi.trizi.domain.order.OrderModel;
 import com.delivery.trizi.trizi.repositories.OrderRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -13,44 +12,46 @@ import java.util.*;
 @Service
 @AllArgsConstructor
 public class OrderService  {
+
     private final OrderRepository orderRepository;
-    private final ProductService productService;
     private final UserService userService;
-    public Page<Order> getAllPageable(Pageable pageable) {
+    private final ProductService productService;
+
+    public Page<OrderModel> getAllPageable(Pageable pageable) {
        return orderRepository.findAll(pageable);
     }
 
-    public List<Order> getAll() {
+    public List<OrderModel> getAll() {
         return orderRepository.findAll();
     }
 
-    public Optional<Order> getById(String id) {
+    public Optional<OrderModel> getById(String id) {
         return orderRepository.findById(id);
     }
 
-    public Order post(Order order, String mail, String description) {
-        var user = userService.findByMail(mail);
-        Optional<ProductModel> descriptions = (productService.getByDescription(description));
-        order.setUserModel(user);
-        order.setProductModelList((List<ProductModel>) descriptions.orElseThrow());
+
+    public OrderModel post(OrderModel order, String mail, String description) {
+        var u = userService.findByMail(mail);
+        var d = productService.getByDescription(description);
+        order.setUserModel(u);
+        order.setProductModelList(List.of(d));
         return orderRepository.save(order);
     }
 
-
-    public Order put(String id, Order order) {
-        return null;
-    }
+//    public OrderModel put(String tracker, String mail, String description) {
+//
+//    }
     public boolean delete(String id) {
-        Optional<Order> orderOptional = orderRepository.findById(id);
+        Optional<OrderModel> orderOptional = orderRepository.findById(id);
 
         if (orderOptional.isPresent()) {
-            Order order = new Order();
-            orderRepository.delete(order);
+            OrderModel orderModel = new OrderModel();
+            orderRepository.delete(orderModel);
             return true;
         }
         return false;
     }
-    public Order findByTracker(String tracker) {
+    public OrderModel findByTracker(String tracker) {
         return orderRepository.findByTracker(tracker);
     }
 }

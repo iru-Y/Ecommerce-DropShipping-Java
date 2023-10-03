@@ -1,7 +1,6 @@
 package com.delivery.trizi.trizi.controllers;
 
-import com.delivery.trizi.trizi.domain.order.Order;
-import com.delivery.trizi.trizi.domain.product.ProductModel;
+import com.delivery.trizi.trizi.domain.order.OrderModel;
 import com.delivery.trizi.trizi.services.OrderService;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -21,23 +20,23 @@ public class OrderController {
     private final OrderService orderService;
 
     @GetMapping
-    public ResponseEntity<Page<Order>> getAllProducts(Pageable pageable) {
+    public ResponseEntity<Page<OrderModel>> getAllProducts(Pageable pageable) {
         log.info("Entrou no gelAllProducts");
-        Page<Order> orders = orderService.getAllPageable(pageable);
+        Page<OrderModel> orders = orderService.getAllPageable(pageable);
         return ResponseEntity.ok().body(orders);
     }
     
     @GetMapping(value = "{id}")
-    public ResponseEntity<Optional<Order>> findById (@PathVariable String id) {
+    public ResponseEntity<Optional<OrderModel>> findById (@PathVariable String id) {
         return ResponseEntity.ok().body(orderService.getById(id));
     }
 
     @PostMapping
-    public ResponseEntity<Order> post (@RequestBody Order order,
-                                       @RequestParam (value = "login") String login,
-                                       @RequestParam(value = "description") String description
+    public ResponseEntity<OrderModel> post (@RequestBody OrderModel order,
+                                            @RequestParam (value = "mail") String mail,
+                                            @RequestParam (value = "description") String description
                                       ) {
-        var resp = orderService.post(order, login, description);
+        var resp = orderService.post(order, mail, description);
         return ResponseEntity.status(HttpStatus.CREATED).body(resp);
     }
 
@@ -47,5 +46,8 @@ public class OrderController {
        return true;
     }
 
-
+    @GetMapping("/tracker")
+    public ResponseEntity<OrderModel> getByTracker(@RequestParam(value = "tracker") String tracker) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(orderService.findByTracker(tracker));
+    }
 }
