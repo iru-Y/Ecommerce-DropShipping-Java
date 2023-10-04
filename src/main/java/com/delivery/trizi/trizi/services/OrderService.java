@@ -2,13 +2,19 @@ package com.delivery.trizi.trizi.services;
 
 import com.delivery.trizi.trizi.domain.order.OrderModel;
 import com.delivery.trizi.trizi.domain.order.OrderStatusEnum;
+import com.delivery.trizi.trizi.domain.product.ProductModel;
 import com.delivery.trizi.trizi.repositories.OrderRepository;
+import com.delivery.trizi.trizi.services.exception.DataBaseException;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Type;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -31,12 +37,24 @@ public class OrderService  {
     }
 
 
-    public OrderModel post(OrderModel order, String mail, String description) {
-        var u = userService.findByMail(mail);
-        var d = productService.getByDescription(description);
-        order.setUserModel(u);
-        order.setProductModelList(List.of(d));
-        return orderRepository.save(order);
+    public OrderModel post(String mail, String description, Long quantity) {
+        OrderModel order = new OrderModel();
+        List<ProductModel> products = new ArrayList<>();
+        var user = userService.findByMail(mail);
+        var product = productService.getByDescription(description);
+        if (product.getQuantity() >= quantity) {
+                for (int i = 0; i < quantity; i++) {
+                    products.add(product);
+                }
+
+                order.setProductModelList(products);
+                order.setStatus(OrderStatusEnum.SHIPPED);
+                productService.updateProductQuantity(product, -quantity);
+            } else {
+                throw new DataBaseException("Não existe produtos suficientes no estoque");
+            }
+                 order.setUserModel(user);
+            return orderRepository.save(order);
     }
 
     public OrderModel patch(String tracker, String description, OrderStatusEnum status) {

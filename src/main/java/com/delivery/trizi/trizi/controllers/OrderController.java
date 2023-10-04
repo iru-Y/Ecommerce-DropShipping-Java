@@ -2,15 +2,21 @@ package com.delivery.trizi.trizi.controllers;
 
 import com.delivery.trizi.trizi.domain.order.OrderModel;
 import com.delivery.trizi.trizi.domain.order.OrderStatusEnum;
+import com.delivery.trizi.trizi.domain.product.ProductDTO;
+import com.delivery.trizi.trizi.domain.product.ProductModel;
 import com.delivery.trizi.trizi.services.OrderService;
+import com.google.gson.Gson;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -34,13 +40,28 @@ public class OrderController {
     }
 
     @PostMapping
-    public ResponseEntity<OrderModel> post (@RequestBody OrderModel order,
-                                            @RequestParam (value = "mail") String mail,
-                                            @RequestParam (value = "description") String description
-                                      ) {
-        var resp = orderService.post(order, mail, description);
+    public ResponseEntity<OrderModel> post(
+            @RequestParam(value = "m") String mail,
+            @RequestParam String product,
+            @RequestParam(value = "q") Long quantity
+    ) {
+        var json = new Gson().fromJson(product, ProductDTO.class);
+
+        List<ProductModel> productModelList = new ArrayList<>();
+
+        for (int i = 0; i < json.quantity(); i++) {
+            ProductModel productModel = new ProductModel();
+            BeanUtils.copyProperties(json, productModel);
+            productModelList.add(productModel);
+        }
+
+        String description = productModelList.get(0).getDescription();
+
+        var resp = orderService.post(mail, description, quantity);
+
         return ResponseEntity.status(HttpStatus.CREATED).body(resp);
     }
+
 
     @PatchMapping
     public ResponseEntity<OrderModel> patch (@RequestParam(value = "tracker") String tracker,

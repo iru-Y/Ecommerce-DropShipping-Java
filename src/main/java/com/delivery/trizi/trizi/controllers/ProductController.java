@@ -41,7 +41,7 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<ProductModel> post(@RequestParam("product") String userJson,
+    public ResponseEntity<ProductModel> post(   @RequestParam("product") String userJson,
                                                 @RequestParam("file") MultipartFile file) throws Exception {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(productService.post(userJson, file));

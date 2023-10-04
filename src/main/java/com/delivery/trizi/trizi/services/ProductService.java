@@ -80,10 +80,18 @@ public class ProductService{
         productModel.setProductImage(storageService.getFileDownloadUrl(fileName));
         return productRepository.save(productModel);
     }
+    public void updateProductQuantity(ProductModel product, Long quantity) {
+        if (product != null && quantity != null) {
+            Long newQuantity = product.getQuantity() + quantity;
 
-    public void updateProductQuantity(List<ProductModel> productModels, Long quantity) {
-        for (ProductModel productModel : productModels) {
-            productModel.setQuantity(productModel.getQuantity() - quantity);
+            if (newQuantity >= 0) {
+                product.setQuantity(newQuantity);
+                productRepository.save(product);
+            } else {
+                throw new DataBaseException("A quantidade não pode ser negativa");
+            }
+        } else {
+            throw new IllegalArgumentException("Parâmetros inválidos para atualização de quantidade");
         }
     }
 }
