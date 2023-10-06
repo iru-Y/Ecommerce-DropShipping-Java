@@ -81,7 +81,8 @@ public class ProductService{
         return productRepository.save(productModel);
     }
     public void updateProductQuantity(ProductModel product, Long quantity) {
-        if (product != null && quantity != null) {
+        product.setQuantity(product.getQuantity() - quantity);
+        try  {
             Long newQuantity = product.getQuantity() + quantity;
 
             if (newQuantity >= 0) {
@@ -90,8 +91,8 @@ public class ProductService{
             } else {
                 throw new DataBaseException("A quantidade não pode ser negativa");
             }
-        } else {
-            throw new IllegalArgumentException("Parâmetros inválidos para atualização de quantidade");
+        } catch (Exception e){
+            throw new IllegalArgumentException("Parâmetros inválidos para atualização de quantidade" + e);
         }
     }
 }

@@ -1,6 +1,5 @@
 package com.delivery.trizi.trizi.controllers;
 
-import com.delivery.trizi.trizi.domain.product.ProductDTO;
 import com.delivery.trizi.trizi.domain.product.ProductModel;
 import com.delivery.trizi.trizi.services.ProductService;
 import lombok.AllArgsConstructor;
@@ -41,10 +40,10 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<ProductModel> post(   @RequestParam("product") String userJson,
+    public ResponseEntity<ProductModel> post(   @RequestParam("product") String product,
                                                 @RequestParam("file") MultipartFile file) throws Exception {
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(productService.post(userJson, file));
+                .body(productService.post(product, file));
     }
 
     @PatchMapping("/{id}")

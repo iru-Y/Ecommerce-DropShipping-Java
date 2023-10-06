@@ -16,6 +16,6 @@ public class ProductModel implements Serializable {
     private String id;
     private String description;
     private Long quantity;
-    private String price;
+    private Double price;
     private String productImage;
 }

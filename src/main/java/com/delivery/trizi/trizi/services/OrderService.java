@@ -8,6 +8,7 @@ import com.delivery.trizi.trizi.services.exception.DataBaseException;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -37,33 +38,39 @@ public class OrderService  {
     }
 
 
-    public OrderModel post(String mail, String description, Long quantity) {
-        OrderModel order = new OrderModel();
-        List<ProductModel> products = new ArrayList<>();
-        var user = userService.findByMail(mail);
-        var product = productService.getByDescription(description);
-        if (product.getQuantity() >= quantity) {
-                for (int i = 0; i < quantity; i++) {
-                    products.add(product);
-                }
-
-                order.setProductModelList(products);
-                order.setStatus(OrderStatusEnum.SHIPPED);
-                productService.updateProductQuantity(product, -quantity);
-            } else {
-                throw new DataBaseException("Não existe produtos suficientes no estoque");
-            }
-                 order.setUserModel(user);
-            return orderRepository.save(order);
+    public OrderModel post(String mail) {
+       OrderModel order = new OrderModel();
+       var u = userService.findByMail(mail);
+       order.setUserModel(u);
+       return orderRepository.save(order);
     }
 
-    public OrderModel patch(String tracker, String description, OrderStatusEnum status) {
+    public OrderModel patch(String tracker, String mail, String product, String status, boolean isAtt) {
+        var u = userService.findByMail(mail);
         var o = orderRepository.findByTracker(tracker);
-        var p = productService.getByDescription(description);
-        o.setProductModelList(List.of(p));
-        o.setStatus(status);
-        return orderRepository.save(o);
+        var jsonProduct = new Gson().fromJson(product, ProductModel.class);
+        var p = productService.getByDescription(jsonProduct.getDescription());
+        var quantity = jsonProduct.getQuantity();
+
+        if (!isAtt) {
+            o.getProductModelList().clear();
+        }
+
+        for (int i = 0; i < quantity; i++) {
+
+            o.getProductModelList().add(p);
+        }
+
+        var stats = OrderStatusEnum.valueOf(status);
+        o.setTracker(tracker);
+        o.setUserModel(u);
+        o.setStatus(OrderStatusEnum.valueOf(String.valueOf(stats)));
+        productService.updateProductQuantity(p, -quantity);
+        orderRepository.save(o);
+
+        return o;
     }
+
     public boolean delete(String id) {
         Optional<OrderModel> orderOptional = orderRepository.findById(id);
 
