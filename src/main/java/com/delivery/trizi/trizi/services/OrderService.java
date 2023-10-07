@@ -14,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Type;
+import java.text.DecimalFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -60,14 +61,17 @@ public class OrderService  {
 
             o.getProductModelList().add(p);
         }
-
+        var total = p.getPrice() * quantity;
+        String formatted = String.format("%.2f", total);
+        var result = Double.valueOf(formatted);
         var stats = OrderStatusEnum.valueOf(status);
+
         o.setTracker(tracker);
         o.setUserModel(u);
         o.setStatus(OrderStatusEnum.valueOf(String.valueOf(stats)));
+        o.setTotal(result);
         productService.updateProductQuantity(p, -quantity);
         orderRepository.save(o);
-
         return o;
     }
 

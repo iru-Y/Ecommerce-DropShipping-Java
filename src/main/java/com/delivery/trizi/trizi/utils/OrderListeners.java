@@ -34,7 +34,7 @@ public class OrderListeners extends AbstractMongoEventListener<OrderModel> {
         var prefix = "Monkey";
         var suffix = "777";
         var random = new Random();
-        long randomNum = random.nextLong(9000000) + 1000000;
+        long randomNum = random.nextLong(9000000);
         return prefix + randomNum + suffix;
     }
 }
