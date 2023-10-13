@@ -12,4 +12,5 @@ public abstract class GetHour {
                 .withZone(zoneId);
         return formatter.format(instant);
     }
+
 }
