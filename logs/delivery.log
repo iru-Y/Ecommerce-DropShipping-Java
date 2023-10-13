@@ -1128,3 +1128,10 @@ org.springframework.security.core.userdetails.UsernameNotFoundException: O UserD
 2023-10-07 15:31:13,537 INFO c.d.t.t.i.o.OpenApiInfra [restartedMain] Gerando swagger da aplicação
 2023-10-07 15:31:14,937 INFO c.d.t.t.TriziApplication [restartedMain] Started TriziApplication in 7.862 seconds (process running for 9.934)
 2023-10-07 15:31:14,947 INFO c.d.t.t.TriziApplication [restartedMain] Subiu
+2023-10-13 16:14:50,959 INFO c.d.t.t.TriziApplication [restartedMain] Starting TriziApplication using Java 17.0.8.1 with PID 4855 (/home/iruy/Programacao/EcommerceDrop/Ecommerce-DropShipping-Java/target/classes started by iruy in /home/iruy/Programacao/EcommerceDrop/Ecommerce-DropShipping-Java)
+2023-10-13 16:14:50,970 DEBUG c.d.t.t.TriziApplication [restartedMain] Running with Spring Boot v3.1.2, Spring v6.0.11
+2023-10-13 16:14:50,973 INFO c.d.t.t.TriziApplication [restartedMain] The following 1 profile is active: "test"
+2023-10-13 16:14:58,698 DEBUG c.d.t.t.i.s.SecurityFilter [restartedMain] Filter 'securityFilter' configured for use
+2023-10-13 16:15:00,088 INFO c.d.t.t.i.o.OpenApiInfra [restartedMain] Gerando swagger da aplicação
+2023-10-13 16:15:00,721 INFO c.d.t.t.TriziApplication [restartedMain] Started TriziApplication in 10.959 seconds (process running for 13.486)
+2023-10-13 16:15:00,726 INFO c.d.t.t.TriziApplication [restartedMain] Subiu

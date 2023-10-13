@@ -7,7 +7,7 @@ spring:
 api:
   security:
     token:
-      secret: ${JWT_SECRET:my-secret-key}
+      secret: ${JWT_SECRET}
 
 logging:
   level:
@@ -19,8 +19,8 @@ logging:
 cloud:
   aws:
     credentials:
-      access-key: ${ACCESS_KEY:AKIAR63SZWDKN2SM23C4}
-      secret-key: ${SECRET_KEY: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}
+      access-key: ${ACCESS_KEY}
+      secret-key: ${SECRET_KEY}
     region:
       static: us-east-2
     stack:

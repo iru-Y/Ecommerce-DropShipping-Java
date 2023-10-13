@@ -10,9 +10,7 @@ import java.util.Random;
 
 @Component
 public class OrderListeners extends AbstractMongoEventListener<OrderModel> {
-
     private final MongoOperations mongoOperations;
-
     public OrderListeners(MongoOperations mongoOperations) {
         this.mongoOperations = mongoOperations;
     }
@@ -29,7 +27,6 @@ public class OrderListeners extends AbstractMongoEventListener<OrderModel> {
             order.setUpdatedAt(GetHour.getHour());
         }
     }
-
     private String generateTracker() {
         var prefix = "Monkey";
         var suffix = "777";
