@@ -14,7 +14,6 @@ public class OrderListeners extends AbstractMongoEventListener<OrderModel> {
     public OrderListeners(MongoOperations mongoOperations) {
         this.mongoOperations = mongoOperations;
     }
-
     @Override
     public void onBeforeConvert(BeforeConvertEvent<OrderModel> event) {
         OrderModel order = event.getSource();
