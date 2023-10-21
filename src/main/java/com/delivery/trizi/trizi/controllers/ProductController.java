@@ -1,7 +1,9 @@
 package com.delivery.trizi.trizi.controllers;
 
+import com.delivery.trizi.trizi.domain.product.ProductDTO;
 import com.delivery.trizi.trizi.domain.product.ProductModel;
 import com.delivery.trizi.trizi.services.ProductService;
+import com.google.gson.Gson;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.BeanUtils;
@@ -20,7 +22,7 @@ public class ProductController {
     final private ProductService productService;
 
     @GetMapping
-    public ResponseEntity<Page<ProductModel>> getAllProducts(Pageable pageable, @RequestParam(defaultValue = "false") boolean sorted) {
+    public ResponseEntity<Page<ProductModel>> getAllProducts(Pageable pageable) {
         log.info("Entrou no gelAllProducts");
         Page<ProductModel> products = productService.getAllPageable(pageable);
         return ResponseEntity.ok().body(products);
@@ -47,15 +49,12 @@ public class ProductController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<ProductModel> updateUser(@PathVariable String id,
-                                                @RequestParam("product") String userJson,
-                                                @RequestParam("file") MultipartFile file) {
-        ProductModel productModel = new ProductModel();
-        BeanUtils.copyProperties(userJson, productModel);
-        ProductModel updatedUser = productService.put(id, productModel, file);
-        ProductModel imageLink = productService.post(id, file);
-        updatedUser.setProductImage(imageLink.getProductImage());
-        return ResponseEntity.ok().body(updatedUser);
+    public ResponseEntity<ProductModel> updateProduct(@PathVariable String id,
+                                                      @RequestParam("product") String product,
+                                                      @RequestParam("file") MultipartFile file) {
+        var productModel = new Gson().fromJson(product, ProductModel.class);
+        ProductModel updatedProduct = productService.put(id, productModel, file);
+        return ResponseEntity.ok().body(updatedProduct);
     }
 
     @DeleteMapping("/{id}")

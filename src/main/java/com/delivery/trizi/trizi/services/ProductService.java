@@ -47,7 +47,7 @@ public class ProductService{
 
             if (file != null && !file.isEmpty()) {
                 String imageLink = storageService.uploadFile(file);
-                existingProduct.setProductImage(imageLink);
+                existingProduct.setProductImage(storageService.getFileDownloadUrl(imageLink));
             }
             return productRepository.save(existingProduct);
         }
